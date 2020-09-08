@@ -45,7 +45,6 @@
 
 			//creat sql
 			$sql = "INSERT INTO pizzas(title,email,ingredients) VALUES('$title','$email','$ingredients')";
-
 			// save to db and check
 			if(mysqli_query($conn,$sql)){
 				//success
