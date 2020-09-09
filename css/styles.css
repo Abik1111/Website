@@ -1,3 +1,6 @@
+*{
+    box-sizing: content-box;
+}
 body
 {
      width: 100%;
@@ -7,10 +10,6 @@ body
     background: linear-gradient(to right,dodgerblue, #88E2F2)
     
 }
-*{
-    box-sizing: content-box;
-}
-
 #header-nav{
     background-color:#5095d0;
     border-radius: 0px;
@@ -86,4 +85,37 @@ body
 #collapsed-navbar{
     background-color:#5095d0;
     float:right;
+}
+
+#header-nav button{
+    align-content: center;
+    margin:30px;
+    background:#c8bfe7;
+}
+
+
+.panel-footer{
+    background:#3a3a3a;
+    color:white;
+    width:98%;
+    font-size:1.2em;
+    padding:15px 0;
+    text-align:center;
+    margin-left:13px; 
+}
+.panel-footer hr{
+    width: 30%;
+}
+
+@media (min-width:1200px){
+    
+}
+@media (min-width:992px) and (max-width:1199px){
+    
+}
+@media (min-width:768px) and (max-width:991px){
+    
+}
+@media (max-width:767px){
+    
 }
