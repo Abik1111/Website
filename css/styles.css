@@ -1,0 +1,121 @@
+*{
+    box-sizing: content-box;
+}
+body
+{
+     width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right,dodgerblue, #88E2F2)
+    
+}
+#header-nav{
+    background-color:#5095d0;
+    border-radius: 0px;
+    border:0;
+    height:110px;
+}
+
+#logo-photo{
+    background:url('../images/final_logo.jpg') no-repeat;
+    width:100px;
+    height:100px;
+    margin:5px;
+    vertical-align: middle;
+    
+    
+}
+
+
+#header-nav a:hover ,#header-nav a:focus{
+    text-decoration: none;
+    
+}
+
+.navbar-brand h1{
+    font-weight: bold;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top:10px;
+    
+    
+}
+.navbar-brand p{
+    font-size: 0.7em;
+    color:#000;
+    font-weight: bolder;
+    text-transform:uppercase;
+    
+}
+
+#nav-list{
+    font-size: 1.5em;
+    margin-top:10px;
+
+}
+#nav-list a{
+    box-sizing: border-box;
+    color:#fff;
+    text-align: center;
+    height:90px;
+    width:90px;
+    padding-top:20px;
+    line-height:1.2em;
+    
+}
+
+#navlist .active {
+    color:black;
+}
+#nav-list a:hover{
+    color:dodgerblue;
+    background:white;
+}
+
+#nav-list a: focus{
+    color:dodgerblue;
+    background:white;
+}
+
+#nav-list .active a{
+    color:black;
+}
+#collapsed-navbar{
+    background-color:#5095d0;
+    float:right;
+}
+
+#header-nav button{
+    align-content: center;
+    margin:30px;
+    background:#c8bfe7;
+}
+
+
+.panel-footer{
+    background:#3a3a3a;
+    color:white;
+    width:98%;
+    font-size:1.2em;
+    padding:15px 0;
+    text-align:center;
+    margin-left:13px; 
+}
+.panel-footer hr{
+    width: 30%;
+}
+
+@media (min-width:1200px){
+    
+}
+@media (min-width:992px) and (max-width:1199px){
+    
+}
+@media (min-width:768px) and (max-width:991px){
+    
+}
+@media (max-width:767px){
+    
+}
