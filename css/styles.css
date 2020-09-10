@@ -109,6 +109,7 @@ body
 }
 .jumbo-content{
     position:absolute;
+    font-size: 2em;
     bottom:0;
     background:rgb(0,0,0,0.6);
     color:gainsboro;
@@ -116,8 +117,42 @@ body
     width:100%;
     box-sizing: border-box;
 }
+.jumbo-content h1{
+    font-size: 2em;   
+}
 
- 
+
+ /*property contents*/
+#heading-1{
+    margin-bottom:20px;
+    color:rgb(240, 228, 221);
+}
+
+ #property {
+    margin-bottom:50px;
+}
+
+.photo img{
+    width:100%;
+    height:250px;
+    border:2px solid blue;
+    border-radius:5px;
+    box-shadow: 0 0 50px #eee9e6;
+    margin:10px auto;
+}
+.photo{
+    position:relative;
+}
+.details{
+    position:absolute;
+    top:20px;
+    left:20px;
+    color:black;
+    font-size: 1.2em;
+    background:gray;
+    width:90%;
+    opacity:0.5;
+}
 /*for footer*/
 .panel-footer{
     background:#3a3a3a;
@@ -177,5 +212,14 @@ body
         width: 360px;
         margin: 0 auto 15px;
       }
-    
+    .photo img{
+        margin:10px auto 15px;
+        width:360px;
+    }
+    #property{
+        text-align: center;
+    }
+    ul#specific-list{
+        margin-left:12%;
+    }    
 }
