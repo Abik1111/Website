@@ -199,7 +199,9 @@
 			$fields = implode(", ", array_keys($datas_associative_array));
 			$values = array_values($datas_associative_array);
 			for($i=0;$i<count($values);$i++){
-				$values[$i] = "'$values[$i]'";
+				$value = filter_var($values[$i], FILTER_SANITIZE_STRING);
+				$value = mysqli_real_escape_string($connection, $value);
+				$values[$i] = "'$value'";
 			}
 			$values =  implode(", ", $values);
 
