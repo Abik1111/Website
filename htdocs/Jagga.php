@@ -174,6 +174,28 @@
 		
 	}
 
+	//Class just to delete Jagga
+	Class JaggaDelete{
+		private $dataBase;
+		private $handler;
+		
+		//Connects to database and image handler class
+		public function __construct($host,$username,$password){
+			$this->dataBase = new Database($host,$username,$password,'jagga');
+			$this->handler = new ImageHandler('Images');
+		}
+		
+		public function delete($id){
+			$condition = "id = $id";
+			$result = $this->dataBase->delete('jagga_table', $condition);
+			if($result){
+				$this->handler->deleteAllImages($id);
+			}
+			return $result;
+		}
+		
+	}
+
 	//Blueprint of object where datas to be searched
 	Class JaggaSearch{
 		//takes in search keywords and returns 

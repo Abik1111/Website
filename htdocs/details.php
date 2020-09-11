@@ -3,8 +3,11 @@
 	require('Jagga.php');
 	
 	if(isset($_POST['delete'])){
-		echo 'delete id = '.$_POST['delete_id'];
-		//Delete class
+		$jagga = new JaggaDelete('localhost', 'dilip', '123456789');
+		$result = $jagga->delete($_POST['delete_id']);
+		if($result){
+			echo 'success';
+		}
 	}
 	
 	if(isset($_GET['id'])){
