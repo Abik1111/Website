@@ -163,17 +163,17 @@ body
   transition: visibility 0s, opacity 0.5s linear; */
 }
 
-.photo:hover{
+.photo:hover .photo:active{
     cursor: pointer;   
 }
 
-.photo:hover span:nth-child(5){
+.photo:hover .photo:active span:nth-child(5){
     -webkit-transition: visibility 1s, opacity 1s ease-in-out; 
     transition: visibility 1s, opacity 1s ease-in-out;
     visibility: visible;
     opacity: 0.7; 
 }
-.photo:hover span:nth-child(-n+4){
+.photo:hover .photo:active span:nth-child(-n+4){
     font-size: 1em;
     height:10%;
     text-align:left;
@@ -183,17 +183,17 @@ body
     left:-5px;
     vertical-align: middle;
 }
-.photo:hover span:nth-child(2){
+.photo:hover .photo:active span:nth-child(2){
     -webkit-transition: visibility 0.5s, opacity 0.5s linear,width 0.5s linear; 
     transition: visibility 0.5s, opacity 0.5s linear;
     top:20px;    
 }
-.photo:hover span:nth-child(3){
+.photo:hover .photo:active span:nth-child(3){
     -webkit-transition: visibility 0.7s, opacity 0.7s linear; 
     transition: visibility 0.7s, opacity 0.7s linear;
     top:50px;    
 }
-.photo:hover span:nth-child(4){
+.photo:hover .photo:active span:nth-child(4){
     -webkit-transition: visibility 1s, opacity 1s linear; 
     transition: visibility 1s, opacity 1s linear;
     top:80px;    
@@ -258,7 +258,7 @@ body
     
     .photo{
         width:360px;
-        margin-left:10%;
+        margin-left:10px;
     }
     .photo img{
         margin:10px auto 15px;
