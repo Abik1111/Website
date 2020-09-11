@@ -1,5 +1,6 @@
 <?php 
-	$errors = array('username'=>'','password'=>'');
+	$errors = array('username'=>'','password'=>'','retypePassword'=>'','details'=>'');
+	$newUsername = $newPassword = $retypePassword = $newDetails = '';
 
 	if(isset($_POST['login'])){
 		if(empty($_POST['username'])){
@@ -15,7 +16,6 @@
 		}
 
 		if(!array_filter($errors)){
-			$_SESSION['host']='localhost';
 			$server = new Server($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
 			$connection = $server->getConnection();
 			if($connection!=null){
@@ -24,7 +24,7 @@
 				$_SESSION['datas']=false;
 				$_SESSION['users']=false;
 
-				$db =  new Database('localhost',$_SESSION['username'],$_SESSION['password'],'jagga');
+				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
 				$temp =  $db->select("jagga_user");
 				$username = $temp[0]['username'];
 				if($username==$_SESSION['username']){
@@ -40,32 +40,97 @@
 
 	if($_SESSION['connected']==true){
 		if(isset($_GET['link'])){
-		if($_GET['link']==0){
-			$_SESSION['connected']=false;
-			$_SESSION['home']=false;
-			$_SESSION['datas']=false;
-			$_SESSION['users']=false;
-			$_SESSION['root']=false;
-			$_SESSION['username']='';
-			$_SESSION['password']='';
-			session_destroy();
-		}else if($_GET['link']==1){
+			if($_GET['link']=='logout'){
+				clear();
+				$_SESSION['username']='';
+				$_SESSION['password']='';
+				session_destroy();
+			}else if($_GET['link']=='home'){
+				clear();
+				$_SESSION['connected']=true;
+				$_SESSION['home']=true;
+			}elseif ($_GET['link']=='data') {
+				clear();
+				$_SESSION['connected']=true;
+				$_SESSION['datas']=true;
+			}elseif ($_GET['link']=='user') {
+				clear();
+				$_SESSION['connected']=true;
+				$_SESSION['users']=true;
+			}elseif ($_GET['link']=='add_user') {
+				clear();
+				$_SESSION['connected']=true;
+				$_SESSION['add_user']=true;
+			}
+		}
+	}
+
+	if($_SESSION['connected']==true){
+		if(isset($_GET['userID'])){
+			clear();
 			$_SESSION['connected']=true;
-			$_SESSION['home']=true;
-			$_SESSION['datas']=false;
-			$_SESSION['users']=false;
-		}elseif ($_GET['link']==2) {
+			$_SESSION['users']=true;
+			$_SESSION['userID']=$_GET['userID'];
+		}
+	}
+
+	if($_SESSION['connected']==true){
+		if(isset($_POST['delete_user'])){
+			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+			$id = $_SESSION['userID'];
+			$temp =  $db->select("jagga_user",null,"id='$id'");
+			$user = new User($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
+			$user->dropUser('%',$temp[0]['username']);
+			$db->delete("jagga_user","id='$id'");
+			clear();
 			$_SESSION['connected']=true;
-			$_SESSION['home']=false;
-			$_SESSION['datas']=true;
-			$_SESSION['users']=false;
-		}elseif ($_GET['link']==3) {
-			$_SESSION['connected']=true;
-			$_SESSION['home']=false;
-			$_SESSION['datas']=false;
 			$_SESSION['users']=true;
 		}
 	}
+
+	if($_SESSION['connected']==true){
+		if(isset($_POST['add_user'])){
+			if(empty($_POST['username'])){
+				$errors['username'] = 'An username is required <br/>';
+			}else{
+				$newUsername = $_POST['username'];
+			}
+
+			if(empty($_POST['password'])){
+				$errors['password'] = 'A password is required <br/>';
+			}else{
+				$newPassword = $_POST['password'];
+			}
+
+			if(empty($_POST['retypePassword'])){
+				$errors['retypePassword'] = 'A password do not match!<br/>';
+			}else{
+				$retypePassword = $_POST['retypePassword'];
+			}
+
+			$newDetails = $_POST['details'];
+
+			if($newPassword==$retypePassword){
+				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+				$temp =  $db->select("jagga_user",null,"username='$newUsername'");
+				if(!empty($temp)){
+				 	$errors['username'] = 'This username already exist<br/>';
+				}
+				if(!array_filter($errors)){
+					$user = new User($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
+					$user->createUser('%',$newUsername,$newPassword);
+					$user->grant(" DELETE,INSERT,SELECT,UPDATE ",'jagga','jagga_table','%',$newUsername);
+					
+					$datas0 = ['username'=>$newUsername,'password'=>$newPassword,'details'=>$newDetails];
+					$db->insert("jagga_user",$datas0);
+					clear();
+					$_SESSION['connected']=true;
+					$_SESSION['users']=true;
+				}
+			}else{
+				$errors['retypePassword'] = 'A password do not match!<br/>';
+			}
+		}
 	}
 
  ?>
@@ -79,9 +144,9 @@
 		https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<style type="text/css">
 		.header{
-			background: #96D2DB;
+			background: #FFFFFF;
 			height: 90px;
-			text-align: left;
+			text-align: center;
 			font-size: 40px;
 			font-weight: bold;
 			padding: 10px;
@@ -113,22 +178,37 @@
 			font-weight: bold;
 			font-size: 30px;
 		}
+		.list{
+			background-color: #cbb09c;
+			height: 50px;
+			display: block;
+			margin: 10px;
+		}
+		.list-text{
+			color: #FFFFFF;
+			font-size: 30px;
+			padding: 20px;
+			font-weight: bold;
+		}
 	</style>
 	</head>
 	<body class = "grey lighten-4">
 		<header class="header">
-			<a href="?link=1" class = "header-text">GHAR JAGGA</a>
+			<a href="?link=home" class = "header-text">GHAR JAGGA</a>
 		</header>
 		<?php if($_SESSION['connected']==true): ?>
-			<nav class = "white z-depth-0">
+			<nav class = "white z-depth-0" c>
 				<div class = "container">
 					<ul id = "nav-mobile" class = "right hide-on-small-and-down">
+						<?php if($_SESSION['connected']==true):?>
+							<li><a href="?link=home" class ="btn brand z-depth-0">Home</a></li>
+						<?php endif; ?>
 						<?php if($_SESSION['connected']==true && $_SESSION['datas']==true):?>
-							<li><a href="#" class ="btn brand z-depth-0">Add Data</a></li>
-						<?php elseif($_SESSION['connected']==true  && $_SESSION['users']==true):?>
-							<li><a href="#" class ="btn brand z-depth-0">Add User</a></li>
+							<li><a href="?link=add_data" class ="btn brand z-depth-0">Add Data</a></li>
+						<?php elseif($_SESSION['connected']==true  && $_SESSION['users']==true && $_SESSION['root']==true):?>
+							<li><a href="?link=add_user" class ="btn brand z-depth-0">Add User</a></li>
 						<?php endif; ?>	
-						<li><a href="?link=0" class ="btn brand z-depth-0">log out</a></li>
+						<li><a href="?link=logout" class ="btn brand z-depth-0">log out</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -141,7 +221,7 @@
 					<div class = "card z-depth-0">
 					<img src="img/data.png" class = "picture">
 					<div class = "card-content center">
-						<a class = "group-text" href="?link=2"> Datas</a>
+						<a class = "group-text" href="?link=data"> Datas</a>
 					</div>
 					</div>
 				</div>
@@ -150,7 +230,7 @@
 						<div class = "card z-depth-0">
 						<img src="img/user.png" class = "picture">
 						<div class = "card-content center">
-							<a class = "group-text" href="?link=3">Users</a>
+							<a class = "group-text" href="?link=user">Users</a>
 						</div>
 						</div>
 					</div>
@@ -161,11 +241,63 @@
 		<div>
 			
 		</div>
-	<?php elseif($_SESSION['connected']==true && $_SESSION['users']==true): ?>
-		<div>
-			<?php  ?>
-			
-		</div>
+	<?php elseif($_SESSION['connected']==true && $_SESSION['users']==true && $_SESSION['root']==true): ?>
+		<?php if($_SESSION['userID']!=1): ?>
+			<?php 
+				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+				$temp = $_SESSION['userID'];
+				$users = $db->select('jagga_user',null,"id=$temp");
+				$user = $users[0];
+			?>
+			<div class = "container center grey-text">
+ 				<h4><?php echo htmlspecialchars($user['username']); ?></h4>
+ 				<p>Password : <?php echo htmlspecialchars($user['password']); ?></p>
+ 				<h5>Details:</h5>
+ 				<p><?php echo htmlspecialchars($user['details'])?></p>
+ 				<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+ 					<input type="submit" name="delete_user" value = "delete" class = "btn brand z-depth-0">
+ 				</form>
+ 			</div>
+		<?php else: ?>
+			<div>
+				<?php 
+					$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+					$users = $db->select('jagga_user');
+				?>
+				<ul class="container">
+				<?php foreach ($users as $user):?>
+					<?php if($user['id']!=1): ?>
+						<li class="list">
+							<a href="?userID=<?php echo($user['id']); ?>" class="list-text">
+								<?php echo $user['username']."&nbsp;(".$user['details'].")";?>
+							</a>
+						</li>
+					<?php endif; ?>
+				<?php endforeach; ?>
+				</ul>
+			</div>
+		<?php endif; ?>
+	<?php elseif($_SESSION['connected']==true && $_SESSION['add_user']==true && $_SESSION['root']==true): ?>
+		<section class = "container grey-text">
+			<h4 class = "center">Add User</h4>
+			<form class = "white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+				<label>Username:</label>
+				<input type="text" name="username" value="<?php echo $newUsername; ?>">
+				<div class = "red-text"><?php echo $errors['username']; ?></div>
+				<label>Password:</label>
+				<input type="password" name="password" value="<?php echo $newPassword; ?>">
+				<div class = "red-text"><?php echo $errors['password']; ?></div>
+				<label>Retype Password:</label>
+				<input type="password" name="retypePassword" value="<?php echo $retypePassword; ?>">
+				<div class = "red-text"><?php echo $errors['retypePassword']; ?></div>
+				<label>Details:</label>
+				<input type="text" name="details" value="<?php echo $newDetails; ?>">
+				<div class = "red-text"><?php echo $errors['details']; ?></div>
+				<div class = "center">
+					<input type="submit" name="add_user" value = "add" class="btn brand z-depth-0">
+				</div>
+			</form>
+		</section>
 	<?php else: ?>
 		<section class = "container grey-text">
 			<h4 class = "center">Admin Details</h4>
