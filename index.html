@@ -1,101 +1,237 @@
 <!DOCTYPE html>
 <html lang="">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>THE PROPERTY SITE</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE PROPERTY SITE</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-
-
-</head>
-
-<body>
-    <header>
-        <nav id="header-nav" class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header">
-                    <a href="index.html" class="pull-left">
-                        <div id="logo-photo"></div>
-                    </a>
-                    <div class="navbar-brand">
-
-                        <a href="index.html">
-                            <h1>Ghar Jagga</h1>
+    <body>
+        <header>
+            <nav id="header-nav" class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="index.html" class="pull-left">
+                            <div id="logo-photo"></div>
                         </a>
-                        <p>Real real-estates</p>
+                        <div class="navbar-brand">
+                            <a href="index.html">
+                                <h1>Ghar Jagga</h1>
+                            </a>
+                            <p>Real real-estates</p>
+                        </div>
+                        <button
+                            type="button"
+                            class="navbar-toggle collapsed"
+                            data-toggle="collapse"
+                            data-target="#collapsed-navbar"
+                            aria-expanded="false"
+                        >
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsed-navbar" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
 
+                    <div class="collapse navbar-collapse" id="collapsed-navbar">
+                        <ul id="nav-list" class="nav navbar-nav navbar-right">
+                            <li class="active">
+                                <a href="index.html"
+                                    ><span
+                                        class="glyphicon glyphicon-home"
+                                    ></span>
+                                    Home<span class="sr-only"
+                                        >(current)</span
+                                    ></a
+                                >
+                            </li>
+                            <li>
+                                <a href="buy.html"
+                                    ><span
+                                        class="glyphicon glyphicon-chevron-up"
+                                    ></span>
+                                    Buy</a
+                                >
+                            </li>
+                            <li>
+                                <a href="sell.html"
+                                    ><span
+                                        class="glyphicon glyphicon-chevron-down"
+                                    ></span>
+                                    Sell</a
+                                >
+                            </li>
+                            <li>
+                                <a href="supsearch.html"
+                                    ><span
+                                        class="glyphicon glyphicon-search"
+                                    ></span>
+                                    Search</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+            </nav>
+        </header>
 
-                <div class="collapse navbar-collapse" id="collapsed-navbar">
-                    <ul id="nav-list" class="nav navbar-nav navbar-right">
-                        <li class="active">
-                            <a href="index.html"><span class="glyphicon glyphicon-home"></span> Home<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li>
-                            <a href="buy.html"><span class="glyphicon glyphicon-chevron-up"></span> Buy</a>
-                        </li>
-                        <li>
-                            <a href="sell.html"><span class="glyphicon glyphicon-chevron-down"></span> Sell</a>
-                        </li>
-                        <li>
-                            <a href="supsearch.html"><span class="glyphicon glyphicon-search"></span> Search</a>
-                        </li>
-                    </ul>
+        <div id="main-content" class="container">
+            <div class="jumbo">
+                <img
+                    src="images/jumbotron.jpg"
+                    alt="Housing"
+                    class="img-responsive"
+                />
+                <div class="jumbo-content hidden-xs">
+                    <h1>Welcome!</h1>
+                    <p>Find the property that suits your need.</p>
+                    <p>
+                        <a
+                            class="btn btn-primary btn-lg"
+                            href="supsearch.html"
+                            role="button"
+                            >Start Searching</a
+                        >
+                    </p>
                 </div>
             </div>
-
-        </nav>
-    </header>
-
-    <footer class="panel-footer">
-        <div class="container">
-            <div class="row">
-                <section id="contact">
-                    <span>Contact us:</span><br>
-                    <a href="tel:+977015543338"><span class="glyphicon glyphicon-phone-alt"></span> 9860560086&nbsp;&nbsp;</a>
-                    <a href="tel:+977015543338"><span class="glyphicon glyphicon-phone"></span> 9860560086</a><br>
-                    <a class="social" href="https://www.facebook.com"><span class="fa fa-facebook"></span>&nbsp;</a>
-                    <a class="social" href="https://www.instagram.com"><span class="fa fa-instagram"></span></a>
-                    <br>
-                    <a href="mailto: gharjagga@gmail.com"><span class="glyphicon glyphicon-envelope"></span> gharjagga@gmail.com</a>
-                </section>
-                <hr>
-                <div class="text-center">&copy; Copyright 2020.</div>
-                <div id="author">Created by VECTORR</div>
-
+            <!-- <div id="property" class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <span>Ramprasad</span>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <span>shyan prasad</span>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <span>ghanshyam prasad</span>
+        </div>
+      </div> -->
+            <div id="sub-head">
+                <ul id="specific-list" class="nav nav-pills" role="tablist">
+                    <li role="presentation" class="active"><a href="#">Hot Properties</a></li>
+                    <li role="presentation"><a href="#">Top Viewed</a></li>
+                    <li role="presentation"><a href="#">Best Buys</a></li>
+                </ul>
             </div>
-
+            <div id="property" class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a href="#"> <div class="photo">
+                        <img src="images/retirement.jpg" alt="" />
+                        <!-- <div class="smdet">
+                            <span id="area">Area:&nbsp;Area</span>
+                            <span id="loc">Location:&nbsp;Location</span>
+                            <span id="price">Price:&nbsp;Price</span>
+                        </div> -->
+                        <span>Area:&nbsp;Area</span>
+                        <span>Location:&nbsp;Location</span>
+                        <span>Price:&nbsp;Price</span>
+                        <span>View Details</span>
+                        
+                    </div></a>
+                   
+                    
+                    
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a href="#"> <div class="photo">
+                        <img src="images/retirement.jpg" alt="" />
+                        <span>Area:&nbsp;Area</span>
+                        <span>Location:&nbsp;Location</span>
+                        <span>Price:&nbsp;Price</span>
+                        <span>View Details</span>
+                    </div></a>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a href="#"> <div class="photo">
+                        <img src="images/retirement.jpg" alt="" />
+                        <span>Area:&nbsp;Area</span>
+                        <span>Location:&nbsp;Location</span>
+                        <span>Price:&nbsp;Price</span>
+                        <span>View Details</span>
+                    </div></a>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a href="#"> <div class="photo">
+                        <img src="images/retirement.jpg" alt="" />
+                        <span>Area:&nbsp;Area</span>
+                        <span>Location:&nbsp;Location</span>
+                        <span>Price:&nbsp;Price</span>
+                        <span>View Details</span>
+                    </div></a>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a href="#"> <div class="photo">
+                        <img src="images/retirement.jpg" alt="" />
+                        <span>Area:&nbsp;Area</span>
+                        <span>Location:&nbsp;Location</span>
+                        <span>Price:&nbsp;Price</span>
+                        <span>View Details</span>
+                    </div></a>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a href="#"> <div class="photo">
+                        <img src="images/retirement.jpg" alt="" />
+                        <span>Area:&nbsp;Area</span>
+                        <span>Location:&nbsp;Location</span>
+                        <span>Price:&nbsp;Price</span>
+                        <span>View Details</span>
+                    </div></a>
+                </div>
+            </div>
+            
+            
         </div>
 
+        <footer class="panel-footer">
+            <div class="container">
+                <div class="row">
+                    <section id="contact">
+                        <span>Contact us:</span><br />
+                        <a href="tel:+977015543338"
+                            ><span class="glyphicon glyphicon-phone-alt"></span>
+                            9860560086&nbsp;&nbsp;</a
+                        >
+                        <a href="tel:+977015543338"
+                            ><span class="glyphicon glyphicon-phone"></span>
+                            9860560086</a
+                        ><br />
+                        <a class="social" href="https://www.facebook.com"
+                            ><span class="fa fa-facebook"></span
+                            >&nbsp;&nbsp;&nbsp;</a
+                        >
+                        <a class="social" href="https://www.instagram.com"
+                            ><span class="fa fa-instagram"></span
+                        ></a>
+                        <br />
+                        <a href="mailto: gharjagga@gmail.com"
+                            ><span class="glyphicon glyphicon-envelope"></span>
+                            gharjagga@gmail.com</a
+                        >
+                    </section>
+                    <hr />
+                    <div class="text-center">&copy; Copyright 2020.</div>
+                    <div id="author">Created by VECTORR</div>
+                </div>
+            </div>
+        </footer>
 
+        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="practice.js"></script>
+        <script src="js/script.js"></script>
 
-
-    </footer>
-
-
-
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="practice.js"></script>
-    <script src="js/script.js"></script>
-
-    <!--
+        <!--
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha3849/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 -->
-
-</body>
-
+    </body>
 </html>
