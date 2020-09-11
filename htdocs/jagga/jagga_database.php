@@ -23,7 +23,18 @@
 				date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 				availability BOOLEAN NOT NULL,
 				primary key(id)");
+			JaggaDatabase::$database->createTable("jagga_user","
+				id INT NOT NULL AUTO_INCREMENT,
+				username CHAR(255) NOT NULL,
+				password CHAR(255) NOT NULL,
+				primary key(id)");
+			$datas0 = ['id'=>'1','username'=>$user,'password'=>$password];
+			JaggaDatabase::$database->insert("jagga_user",$datas0);
 		}
+
+		
+
+
 	}
 
 
