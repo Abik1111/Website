@@ -22,16 +22,18 @@
 			$server = new Server($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
 			$connection = $server->getConnection();
 			if($connection!=null){
-				$_SESSION['connected']=true;
-				$_SESSION['home']=true;
-				$_SESSION['datas']=false;
-				$_SESSION['users']=false;
-
 				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
 				$temp =  $db->select("jagga_user");
 				$username = $temp[0]['username'];
 				if($username==$_SESSION['username']){
+					clear();
+					$_SESSION['connected']=true;
+					$_SESSION['home']=true;
 					$_SESSION['root']=true;
+				}else{
+					clear();
+					$_SESSION['connected']=true;
+					$_SESSION['datas']=true;
 				}
 
 				mysqli_close($connection);
@@ -258,7 +260,7 @@
 		}
 		.list{
 			background-color: #cbb09c;
-			height: 50px;
+			height: 100px;
 			display: block;
 			margin: 10px;
 		}
@@ -272,13 +274,13 @@
 	</head>
 	<body class = "grey lighten-4">
 		<header class="header">
-			<a href="?link=home" class = "header-text">GHAR JAGGA</a>
+			<a href="?link=home" class = "brand-text">ADMIN LOGIN</a>
 		</header>
 		<?php if($_SESSION['connected']==true): ?>
 			<nav class = "white z-depth-0" c>
 				<div class = "container">
 					<ul id = "nav-mobile" class = "right hide-on-small-and-down">
-						<?php if($_SESSION['connected']==true):?>
+						<?php if($_SESSION['connected']==true && $_SESSION['root']==true):?>
 							<li><a href="?link=home" class ="btn brand z-depth-0">Home</a></li>
 						<?php endif; ?>
 						<?php if($_SESSION['connected']==true && $_SESSION['datas']==true):?>
@@ -292,7 +294,7 @@
 			</nav>
 		<?php endif; ?>
 
-	<?php if($_SESSION['connected']==true && $_SESSION['home']==true): ?>
+	<?php if($_SESSION['connected']==true && $_SESSION['home']==true && $_SESSION['root']==true): ?>
 		<div class = "container">
 			<div class = row>
 				<div class = "col s6 md3">
@@ -303,16 +305,14 @@
 					</div>
 					</div>
 				</div>
-				<?php if($_SESSION['root']==true): ?>
-					<div class = "col s6 md3">
-						<div class = "card z-depth-0">
-						<img src="img/user.png" class = "picture">
-						<div class = "card-content center">
-							<a class = "group-text" href="?link=user">Users</a>
-						</div>
-						</div>
+				<div class = "col s6 md3">
+					<div class = "card z-depth-0">
+					<img src="img/user.png" class = "picture">
+					<div class = "card-content center">
+						<a class = "group-text" href="?link=user">Users</a>
 					</div>
-				<?php endif; ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	<?php elseif($_SESSION['connected']==true && $_SESSION['users']==true && $_SESSION['root']==true): ?>
@@ -436,7 +436,7 @@
 		</section>
 	<?php else: ?>
 		<section class = "container grey-text">
-			<h4 class = "center">Admin Details</h4>
+			<h4 class = "center" class="brand-text">Login to continue... </h4>
 			<form class = "white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 				<label>Username:</label>
 				<input type="text" name="username" value="<?php echo $_SESSION['username'] ?>">
