@@ -32,6 +32,9 @@
 				primary key(id)");
 			$datas0 = ['id'=>'1','username'=>$user,'password'=>$password];
 			JaggaDatabase::$database->insert("jagga_user",$datas0);
+			$user = new User($host,$user,$password);
+			$user->createUser('%','client','password');
+			$user->grant('SELECT','jagga','jagga_table','%','client');
 		}
 	}
 

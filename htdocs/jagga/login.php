@@ -30,6 +30,9 @@
 	if(!array_key_exists('userID', $_SESSION)){
 		$_SESSION['userID']=1;
 	}
+	if(!array_key_exists('dataID', $_SESSION)){
+		$_SESSION['dataID']=1;
+	}
 	if(!array_key_exists('add_user', $_SESSION)){
 		$_SESSION['add_user']=false;
 	}
@@ -41,7 +44,8 @@
 		$_SESSION['home']=false;
 		$_SESSION['datas']=false;
 		$_SESSION['users']=false;
-		$_SESSION['userID']=1;
+		$_SESSION['userID']=0;
+		$_SESSION['dataID']=0;
 		$_SESSION['add_user']=false;
 		$_SESSION['add_data']=false;
 	}

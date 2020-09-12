@@ -1,6 +1,9 @@
 <?php 
 	$errors = array('username'=>'','password'=>'','retypePassword'=>'','details'=>'');
 	$newUsername = $newPassword = $retypePassword = $newDetails = '';
+	$errors = array('address'=>'','area'=>'','description'=>'','owner_contact'=>'');
+	$address='';$area=0.0;$price=0.0;$description='';$owner_contact='';$availability=1;
+
 
 	if(isset($_POST['login'])){
 		if(empty($_POST['username'])){
@@ -38,6 +41,7 @@
 		}
 	}
 
+	//links
 	if($_SESSION['connected']==true){
 		if(isset($_GET['link'])){
 			if($_GET['link']=='logout'){
@@ -61,10 +65,15 @@
 				clear();
 				$_SESSION['connected']=true;
 				$_SESSION['add_user']=true;
+			}elseif ($_GET['link']=='add_data') {
+				clear();
+				$_SESSION['connected']=true;
+				$_SESSION['add_data']=true;
 			}
 		}
 	}
 
+	//userID
 	if($_SESSION['connected']==true){
 		if(isset($_GET['userID'])){
 			clear();
@@ -74,6 +83,17 @@
 		}
 	}
 
+	//dataID
+	if($_SESSION['connected']==true){
+		if(isset($_GET['dataID'])){
+			clear();
+			$_SESSION['connected']=true;
+			$_SESSION['datas']=true;
+			$_SESSION['dataID']=$_GET['dataID'];
+		}
+	}
+
+	//delete user
 	if($_SESSION['connected']==true){
 		if(isset($_POST['delete_user'])){
 			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
@@ -88,6 +108,19 @@
 		}
 	}
 
+	//delete data
+	if($_SESSION['connected']==true){
+		if(isset($_POST['delete_data'])){
+			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+			$id = $_SESSION['dataID'];
+			$db->delete("jagga_table","id='$id'");
+			clear();
+			$_SESSION['connected']=true;
+			$_SESSION['datas']=true;
+		}
+	}	
+
+	//add user
 	if($_SESSION['connected']==true){
 		if(isset($_POST['add_user'])){
 			if(empty($_POST['username'])){
@@ -129,6 +162,51 @@
 				}
 			}else{
 				$errors['retypePassword'] = 'A password do not match!<br/>';
+			}
+		}
+	}
+
+	//add data
+	if($_SESSION['connected']==true){
+		if(isset($_POST['add_data'])){
+			if(empty($_POST['address'])){
+				$errors['address'] = 'An address is required <br/>';
+			}else{
+				$address = $_POST['address'];
+			}
+
+			if($_POST['area']==0){
+				$errors['area'] = 'A area can not be zero <br/>';
+			}else{
+				$area = $_POST['area'];
+			}
+
+			if($_POST['price']==0){
+				$errors['price'] = 'A price can not be zero <br/>';
+			}else{
+				$price = $_POST['price'];
+			}
+
+			if(empty($_POST['description'])){
+				$errors['description'] = 'Description is required <br/>';
+			}else{
+				$description = $_POST['description'];
+			}
+
+			if(empty($_POST['owner_contact'])){
+				$errors['owner_contact'] = 'Owner contact is required <br/>';
+			}else{
+				$owner_contact = $_POST['owner_contact'];
+			}
+
+			if(!array_filter($errors)){
+				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+				$data = ['address'=>$address,'area'=>$area,'price'=>$price,'description'=>$description,
+				  		'owner_contact'=>$owner_contact,'availability'=>1];
+				$db->insert('jagga_table',$data);
+				clear();
+				$_SESSION['connected']=true;
+				$_SESSION['datas']=true;
 			}
 		}
 	}
@@ -237,12 +315,8 @@
 				<?php endif; ?>
 			</div>
 		</div>
-	<?php elseif($_SESSION['connected']==true && $_SESSION['datas']==true): ?>
-		<div>
-			
-		</div>
 	<?php elseif($_SESSION['connected']==true && $_SESSION['users']==true && $_SESSION['root']==true): ?>
-		<?php if($_SESSION['userID']!=1): ?>
+		<?php if($_SESSION['userID']!=0): ?>
 			<?php 
 				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
 				$temp = $_SESSION['userID'];
@@ -277,6 +351,44 @@
 				</ul>
 			</div>
 		<?php endif; ?>
+	<?php elseif($_SESSION['connected']==true && $_SESSION['datas']==true): ?>
+		<?php if($_SESSION['dataID']!=0): ?>
+			<?php 
+				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+				$temp = $_SESSION['dataID'];
+				$datas = $db->select('jagga_table',null,"id=$temp");
+				$data = $datas[0];
+			?>
+			<div class = "container center grey-text">
+ 				<h4><?php echo htmlspecialchars($data['address']); ?></h4>
+ 				<p>Area : <?php echo htmlspecialchars($data['area']); ?></p>
+ 				<p>Price : <?php echo htmlspecialchars($data['price']); ?></p>
+ 				<h5>Description:</h5>
+ 				<p><?php echo htmlspecialchars($data['description'])?></p>
+ 				<h5>Owner Contact:</h5>
+ 				<p><?php echo htmlspecialchars($data['owner_contact'])?></p>
+ 				<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+ 					<input type="submit" name="delete_data" value = "delete" class = "btn brand z-depth-0">
+ 				</form>
+ 			</div>
+		<?php else: ?>
+			<div>
+				<?php 
+					$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+					$datas = $db->select('jagga_table');
+				?>
+				<ul class="container">
+				<?php foreach ($datas as $data):?>
+					<li class="list">
+						<a href="?dataID=<?php echo($data['id']); ?>" class="list-text">
+							<?php echo $data['address']."&nbsp;(".$data['area'].
+								" m2 &nbsp;&nbsp;&nbsp;Rs. ".$data['price'].")";?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			</div>
+		<?php endif; ?>
 	<?php elseif($_SESSION['connected']==true && $_SESSION['add_user']==true && $_SESSION['root']==true): ?>
 		<section class = "container grey-text">
 			<h4 class = "center">Add User</h4>
@@ -295,6 +407,30 @@
 				<div class = "red-text"><?php echo $errors['details']; ?></div>
 				<div class = "center">
 					<input type="submit" name="add_user" value = "add" class="btn brand z-depth-0">
+				</div>
+			</form>
+		</section>
+	<?php elseif($_SESSION['connected']==true && $_SESSION['add_data']==true ): ?>
+		<section class = "container grey-text">
+			<h4 class = "center">Add Data</h4>
+			<form class = "white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+				<label>Address:</label>
+				<input type="text" name="address" value="<?php echo $address; ?>">
+				<div class = "red-text"><?php echo $errors['address']; ?></div>
+				<label>Area(Square meter):</label>
+				<input type="number" name="area" value="<?php echo $area; ?>">
+				<div class = "red-text"><?php echo $errors['area']; ?></div>
+				<label>Price(Rs):</label>
+				<input type="number" name="price" value="<?php echo $price; ?>">
+				<div class = "red-text"><?php echo $errors['price']; ?></div>
+				<label>Description:</label>
+				<input type="text" name="description" value="<?php echo $description; ?>">
+				<div class = "red-text"><?php echo $errors['description']; ?></div>
+				<label>Owner Contact:</label>
+				<input type="text" name="owner_contact" value="<?php echo $owner_contact; ?>">
+				<div class = "red-text"><?php echo $errors['owner_contact']; ?></div>
+				<div class = "center">
+					<input type="submit" name="add_data" value = "add" class="btn brand z-depth-0">
 				</div>
 			</form>
 		</section>

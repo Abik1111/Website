@@ -212,9 +212,10 @@
 				$this->close($connection);
 				return false;
 			}
+			$last_id = mysqli_insert_id($connection);
 			$this->errors="";
 			$this->close($connection);
-			return true;
+			return $last_id;
 		}
 
 		public function select($table_name,$fields_array=null,$conditions="true"){
