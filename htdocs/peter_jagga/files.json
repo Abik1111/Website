@@ -1,0 +1,33 @@
+{
+"Names":[{
+"id": 35,
+"address": "Lalitpur",
+"area": 200,
+"price": 5000000000
+}, {
+"id": 34,
+"address": "Pulchowk",
+"area": 12,
+"price": 5000000000
+}, {
+"id": 33,
+"address": "Pulchowk",
+"area": 12,
+"price": 5000000000
+}, {
+"id": 30,
+"address": "Lalitpur",
+"area": 1555,
+"price": 5000000000
+}, {
+"id": 29,
+"address": "Patan",
+"area": 1555,
+"price": 5000000000
+}, {
+"id": 28,
+"address": "Lalitpur",
+"area": 12,
+"price": 5000000000
+}]
+}

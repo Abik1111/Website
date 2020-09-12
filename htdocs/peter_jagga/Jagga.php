@@ -1,0 +1,492 @@
+<?php
+	require 'lib/server_database.php';
+	require 'lib/Image_Handler.php';
+	
+	//Defining the image folder for images
+	define('IMAGE_FOLDER', 'Images');
+	define('DEFAULT_IMAGE', 'img/Default.png');
+	
+	//Defining the variable name for cookies
+	define('SEARCH_COOKIE', 'search_data');
+	
+	//Defining the database and table name
+	define('DATABASE', 'jagga');
+	define('TABLE', 'jagga_table');
+	
+	//Defining the column of database
+	define('ID', 'id');
+	define('LOCATION', 'address');
+	define('AREA', 'area');
+	define('DATE_POSTED', 'date');
+	define('PRICE', 'price');
+	define('DESCRIPTION', 'description');
+	define('AVAILABILITY', 'availability');
+	define('OWNER_CONTACT', 'owner_contact');
+	
+	
+	//Blueprint of object where datas to be retrieved
+	Class JaggaRetrieve{
+		private $id;//id of jagga
+		private $location;//Location of ghar jagga
+		private $area;//Area in m2
+		private $price;//Price of ghar, jagga
+		private $images;//Images sources
+		private $description;//Description of ghar jagga
+		private $available;//If the property is availabe or not
+		private $postedTime;//Posted time in the website
+		private $dataBase;//Database manager of jagga
+		private $ownerContact;//Contact address of owner
+		
+		//Connects to database and image handler class
+		public function __construct($host,$username,$password){
+			$this->dataBase = new Database($host,$username,$password,DATABASE);
+		}
+		
+		//Loads the data into the jagga object
+		public function loadFromDatabase($id){
+			$data = $this->dataBase->select(TABLE, null, "id = $id");
+			if($data==null){
+				return false;
+			}
+			//id, address, area, price, description, date, availability;
+			$this->id = $id;
+			$this->location = $data[0][LOCATION];
+			$this->area = $data[0][AREA];
+			$this->price = $data[0][PRICE];
+			$this->description = $data[0][DESCRIPTION];
+			$this->postedTime = $data[0][DATE_POSTED];
+			$this->available = $data[0][AVAILABILITY];
+			$this->ownerContact = $data[0][OWNER_CONTACT];
+			
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$image_names = $handler->getImagesNames($id);
+			$images = array();
+			foreach($image_names as $name){
+				$this->images[] = $handler->getSrc($id, $name);
+			}
+			return true;
+		}
+		
+		//Getter of jagga
+		public function echoId(){
+			echo htmlspecialchars(strVal($this->id));
+		}
+		
+		public function echoLocation(){
+			echo htmlspecialchars(strVal($this->location));
+		}
+		
+		public function echoArea(){
+			echo htmlspecialchars(strVal($this->area));
+		}
+		
+		public function echoPrice(){
+			echo htmlspecialchars(strVal($this->price));
+		}
+		
+		public function echoDescription(){
+			echo htmlspecialchars(strVal($this->description));
+		}
+		
+		public function echoPostedTime(){
+			echo htmlspecialchars(strVal($this->postedTime));
+		}
+		
+		public function echoAvailability(){
+			echo htmlspecialchars(strVal($this->available));
+		}
+		
+		public function echoOwnerContact(){
+			echo htmlspecialchars(strVal($this->ownerContact));
+		}
+		
+		public function getNumberOfImages(){
+			if(is_array($this->images)){
+				return sizeof($this->images);
+			}
+			else{
+				return 0;
+			}
+		}
+		
+		public function echoImageSrc($index){
+			echo $this->images[$index];
+		}
+		
+	}
+
+	//Blueprint of object where datas to be saved
+	Class JaggaSave{
+		private $id;//id of jagga
+		private $location;//Location of ghar jagga
+		private $area;//Area in m2
+		private $price;//Price of ghar, jagga
+		private $images;//Variable name of image getter in post
+		private $description;//Description of ghar jagga
+		private $available;//If the property is availabe or not
+		private $postedTime;//Posted time in the website
+		private $dataBase;//Database manager of jagga
+		private $ownerContact;//Contact address of owner
+		
+		//Connects to database and image handler class
+		public function __construct($host,$username,$password){
+			$this->dataBase = new Database($host,$username,$password,DATABASE);
+		}
+		
+		//Setter for jagga datas
+		public function addLocation($postName){
+			$this->location = strVal($_POST[$postName]);
+		}
+		
+		public function addArea($postName){
+			$this->area = strVal($_POST[$postName]);
+		}
+		
+		public function addPrice($postName){
+			$this->price = $_POST[$postName];
+		}
+		
+		public function addDescription($postName){
+			$this->description = strVal($_POST[$postName]);
+		}
+		
+		public function addOwnerContact($postName){
+			$this->ownerContact = strVal($_POST[$postName]);
+		}
+		
+		public function addImages($postName){
+			$this->images = $postName;
+		}
+		
+		//Save the class data into the database
+		public function saveToDatabase(){
+			$data = array();
+			$data[LOCATION] = $this->location;
+			$data[AREA] = $this->area;
+			$data[PRICE] = $this->price;
+			$data[DESCRIPTION] = $this->description;
+			$data[AVAILABILITY] = 1;
+			$data[OWNER_CONTACT] = $this->ownerContact;
+			$id = $this->dataBase->insert('jagga_table', $data);
+			if($id == false){
+				return false;
+			}
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$handler->saveImages($id, $this->images);
+			echo 'successful id = '.$id;
+			return true;
+		}
+		
+		//Save into database without saving in class
+		public function saveData($arg_location, $arg_area, $arg_price, $arg_description, $arg_owner_contact, $arg_images){
+			$data = array();
+			$data[LOCATION] = strVal($_POST[$arg_location]);
+			$data[AREA] = $_POST[$arg_area];
+			$data[PRICE] = $_POST[$arg_price];
+			$data[DESCRIPTION] = strVal($_POST[$arg_description]);
+			$data[AVAILABILITY] = 1;
+			$data[OWNER_CONTACT] = strVal($_POST[$arg_owner_contact]);
+			$id = $this->dataBase->insert(TABLE, $data);
+			if($id == false){
+				//Error handling
+				return false;
+			}
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$handler->saveImages($id, $arg_images);
+			return $id;
+		}
+		
+		//Save into database without saving in class
+		public function updateData($id, $arg_location, $arg_area, $arg_price, $arg_description, $arg_owner_contact, $arg_images){
+			$data = array();
+			$data[LOCATION] = strVal($_POST[$arg_location]);
+			$data[AREA] = $_POST[$arg_area];
+			$data[PRICE] = $_POST[$arg_price];
+			$data[DESCRIPTION] = strVal($_POST[$arg_description]);
+			$data[AVAILABILITY] = 1;
+			$data[OWNER_CONTACT] = strVal($_POST[$arg_owner_contact]);
+			$id = $this->dataBase->update(TABLE, $data, ID."=$id");
+			if($id == false){
+				//Error handling
+				return false;
+			}
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$handler->saveImages($id, $arg_images);
+			return $id;
+		}
+		
+	}
+
+	//Blueprint of object where datas to be updated
+	Class JaggaUpdate{
+		private $id;//id of jagga
+		private $location;//Location of ghar jagga
+		private $area;//Area in m2
+		private $price;//Price of ghar, jagga
+		private $images;//Variable name of image getter in post
+		private $description;//Description of ghar jagga
+		private $available;//If the property is availabe or not
+		private $postedTime;//Posted time in the website
+		private $dataBase;//Database manager of jagga
+		private $ownerContact;//Contact address of owner
+		
+		//Connects to database and image handler class
+		public function __construct($host,$username,$password){
+			$this->dataBase = new Database($host,$username,$password,DATABASE);
+		}
+		
+		//Setter for jagga datas
+		public function addLocation($postName){
+			$this->location = strVal($_POST[$postName]);
+		}
+		
+		public function addArea($postName){
+			$this->area = strVal($_POST[$postName]);
+		}
+		
+		public function addPrice($postName){
+			$this->price = $_POST[$postName];
+		}
+		
+		public function addDescription($postName){
+			$this->description = strVal($_POST[$postName]);
+		}
+		
+		public function addOwnerContact($postName){
+			$this->ownerContact = strVal($_POST[$postName]);
+		}
+		
+		public function addImages($postName){
+			$this->images = $postName;
+		}
+		
+		//Save the class data into the database
+		public function saveToDatabase(){
+			$data = array();
+			$data[LOCATION] = $this->location;
+			$data[AREA] = $this->area;
+			$data[PRICE] = $this->price;
+			$data[DESCRIPTION] = $this->description;
+			$data[AVAILABILITY] = 1;
+			$data[OWNER_CONTACT] = $this->ownerContact;
+			$id = $this->dataBase->insert('jagga_table', $data);
+			if($id == false){
+				return false;
+			}
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$handler->saveImages($id, $this->images);
+			echo 'successful id = '.$id;
+			return true;
+		}
+		
+		//Save into database without saving in class
+		public function saveData($arg_location, $arg_area, $arg_price, $arg_description, $arg_owner_contact, $arg_images){
+			$data = array();
+			$data[LOCATION] = strVal($_POST[$arg_location]);
+			$data[AREA] = $_POST[$arg_area];
+			$data[PRICE] = $_POST[$arg_price];
+			$data[DESCRIPTION] = strVal($_POST[$arg_description]);
+			$data[AVAILABILITY] = 1;
+			$data[OWNER_CONTACT] = strVal($_POST[$arg_owner_contact]);
+			$id = $this->dataBase->insert(TABLE, $data);
+			if($id == false){
+				//Error handling
+				return false;
+			}
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$handler->saveImages($id, $arg_images);
+			return $id;
+		}
+		
+		
+	}
+
+	//Class just to delete Jagga
+	Class JaggaDelete{
+		private $dataBase;
+		
+		//Connects to database and image handler class
+		public function __construct($host,$username,$password){
+			$this->dataBase = new Database($host,$username,$password,DATABASE);
+		}
+		
+		public function delete($id){
+			$condition = ID." = $id";
+			$result = $this->dataBase->delete(TABLE, $condition);
+			if($result){
+				$handler = new ImageHandler(IMAGE_FOLDER);
+				$handler->deleteAllImages($id);
+			}
+			return $result;
+		}
+		
+	}
+
+	//Class containig only viewing part of jagga
+	Class JaggaBlock{
+		private $location;
+		private $area;
+		private $price;
+		private $coverSrc;
+		private $id;
+		
+		//Takes in associative array of data and stores in the block
+		public function __construct($data, $index){
+			$this->id = $data[$index][ID];
+			$this->area = $data[$index][AREA];
+			$this->price = $data[$index][PRICE];
+			$this->location = $data[$index][LOCATION];
+			
+			$handler = new ImageHandler(IMAGE_FOLDER);
+			$imageNames = $handler->getImagesNames($data[$index][ID]);
+			if(is_array($imageNames) && sizeof($imageNames)){
+				$this->coverSrc = $handler->getSrc($data[$index][ID], $imageNames[0]);
+			}
+			else{
+				$this->coverSrc = DEFAULT_IMAGE;
+			}
+		}
+		
+		public function getLocation(){
+			return $this->location;
+		}
+		
+		public function getArea(){
+			return $this->area;
+		}
+		
+		public function getPrice(){
+			return $this->price;
+		}
+		
+		public function getCoverSrc(){
+			return $this->coverSrc;
+		}
+		
+		public function getId(){
+			return $this->id;
+		}
+		
+		public function echoLocation(){
+			echo $this->location;
+		}
+		
+		public function echoArea(){
+			echo $this->area;
+		}
+		
+		public function echoPrice(){
+			echo $this->price;
+		}
+		
+		public function echoCoverSrc(){
+			echo $this->coverSrc;
+		}
+		
+		public function echoId(){
+			echo $this->id;
+		}
+	}
+	
+	//Class manipulating the blocks of jagga
+	Class JaggaSelect{
+		private $dataBase;
+	
+		//Connects to database and image handler class
+		public function __construct($host,$username,$password){
+			$this->dataBase = new Database($host,$username,$password,DATABASE);
+		}
+		
+		//Simply returns all the jagga details
+		public function getAllJagga($numberOfJagga, $indexOfPage){
+			$order = DATE_POSTED.' DESC';
+			$fields = array(ID,AREA,PRICE,LOCATION);
+			if(is_numeric($numberOfJagga) && is_numeric($indexOfPage)){
+				$offset = $numberOfJagga*$indexOfPage;
+				$data = $this->dataBase->select(TABLE, $fields, null, $order, $numberOfJagga, $offset);
+			}
+			else{
+				$data = $this->dataBase->select(TABLE, $fields, null, $order);
+				echo $this->dataBase->getErrors();
+			}
+			if(is_array($data)){
+				$jaggas = array();
+				for($i=0; $i<sizeof($data); $i++){ 
+					$jaggas[] = new JaggaBlock($data, $i);
+				}
+				return $jaggas;
+			}
+			else{
+				return false;
+			}
+		}
+				
+		//Search the jaggas depending upon keyword
+		public function getSearchedJagga($keyword, $numberOfJagga, $indexOfPage){
+			$keyword_upper_caps = strtoupper($keyword);
+			$keyword_lower_caps = strtolower($keyword);
+			$keyword_first_cap = ucfirst($keyword);
+			$conditions = ID." LIKE '%{$keyword}%'";
+			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword}%'";
+			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_upper_caps}%'";
+			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_lower_caps}%'";
+			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_first_cap}%'";
+			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword}%'";
+			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_upper_caps}%'";
+			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_lower_caps}%'";
+			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_first_cap}%'";
+			$order= DATE_POSTED.' DESC';
+			
+			$fields = array(ID,AREA,PRICE,LOCATION);
+			if(is_numeric($numberOfJagga) && is_numeric($indexOfPage)){
+				$offset = $numberOfJagga*$indexOfPage;
+				$data = $this->dataBase->select(TABLE, $fields, $conditions, $order, $numberOfJagga, $offset);
+			}
+			else{
+				$data = $this->dataBase->select(TABLE, $fields, $conditions, $order);
+			}
+			if(is_array($data)){
+				$jaggas = array();
+				for($i=0; $i<sizeof($data); $i++){ 
+					$jaggas[] = new JaggaBlock($data, $i);
+				}
+				return $jaggas;
+			}
+			else{
+				return false;
+			}
+		}
+		
+		//Takes in array of jagga block and creates json file
+		public static function parseToJson($data, $fileName, $varName){
+			$string = '{'."\n";
+			$string .= '"'.$varName.'":[';
+			if(is_array($data)){			
+				for($i=0; $i<sizeof($data); $i++){
+					if($i!=0){
+						$string .= ', ';
+					}
+					$string .= '{'."\n";
+					$string .= '"'.ID.'": '.strVal($data[$i]->getId()).','."\n";
+					$string .= '"'.LOCATION.'": "'.strVal($data[$i]->getLocation()).'",'."\n";
+					$string .= '"'.AREA.'": '.strVal($data[$i]->getArea()).','."\n";
+					$string .= '"'.PRICE.'": '.strVal($data[$i]->getPrice())."\n";
+					$string .= '}';
+				}
+			}
+			$string .= ']'."\n";
+			$string .= '}';
+			$file = fopen($fileName, 'w+');
+			fwrite($file, $string);
+			fclose($file);
+		}
+	
+		public static function deleteJson($fileName){
+			if(!file_exists($fileName)){
+				return true;
+			}
+			return unlink($fileName);
+		}
+	}
+
+?>
