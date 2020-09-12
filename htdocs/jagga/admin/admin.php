@@ -271,6 +271,7 @@
 			font-weight: bold;
 		}
 	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body class = "grey lighten-4">
 		<header class="header">
@@ -279,7 +280,7 @@
 		<?php if($_SESSION['connected']==true): ?>
 			<nav class = "white z-depth-0" c>
 				<div class = "container">
-					<ul id = "nav-mobile" class = "right hide-on-small-and-down">
+					<ul id = "nav-mobile" class = "right hide-on-down">
 						<?php if($_SESSION['connected']==true && $_SESSION['root']==true):?>
 							<li><a href="?link=home" class ="btn brand z-depth-0">Home</a></li>
 						<?php endif; ?>
