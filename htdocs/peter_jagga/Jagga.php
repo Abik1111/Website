@@ -420,7 +420,16 @@
 				return false;
 			}
 		}
-				
+		
+		//Returns the no. of page the result will have
+		public function getAllPagesNo($numberOfJagga){
+			$data = $this->getAllJagga('','');
+			$number = sizeof($data);
+			$number /= $numberOfJagga;
+			$number = ceil($number);
+			return $number;
+		}
+		
 		//Search the jaggas depending upon keyword
 		public function getSearchedJagga($keyword, $numberOfJagga, $indexOfPage){
 			$keyword_upper_caps = strtoupper($keyword);
@@ -455,6 +464,15 @@
 			else{
 				return false;
 			}
+		}
+		
+		//Returns the no. of page the result will have
+		public function getSearchPagesNo($keyword, $numberOfJagga){
+			$data = $this->getAllJagga($keyword, '', '');
+			$number = sizeof($data);
+			$number /= $numberOfJagga;
+			$number = ceil($number);
+			return $number;
 		}
 		
 		//Takes in array of jagga block and creates json file
