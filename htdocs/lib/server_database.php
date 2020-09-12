@@ -42,7 +42,7 @@
 					table_name = * means all
 					host = % means all
 			boolean revoke(String permissions,String database_name,String table_name,String host,String username);
-				e.g:- permissions = "ALL","All PRIVILEGES","CREATE,DROP,DELETE,INSERT,SELECT,UPDATE"
+				e.g:- permissions = "ALL","CREATE,DROP,DELETE,INSERT,SELECT,UPDATE"
 					database_name = * means all
 					table_name = * means all
 					host = % means all
@@ -212,9 +212,10 @@
 				$this->close($connection);
 				return false;
 			}
+			$last_id = mysqli_insert_id($connection);
 			$this->errors="";
 			$this->close($connection);
-			return true;
+			return $last_id;
 		}
 
 		public function select($table_name,$fields_array=null,$conditions="true"){
@@ -231,11 +232,18 @@
 				$sql = "SELECT ".$fields." FROM ".$table_name;
 			}
 
-			$sql=$sql." WHERE ".$conditions;
+			if($conditions!="true"){
+				$sql=$sql." WHERE ".$conditions;
+			}
 
 			$result = mysqli_query($connection,$sql);
+			if(!$result){
+				$this->errors ="Query Error".mysqli_connect_error($connection);
+				return null;
+			}
 
 			$datas = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
 			mysqli_free_result($result);
 			
 			$this->close($connection);
@@ -328,7 +336,7 @@
 				return false;
 			}
 
-			$sql = "CREATE USER IF NOT EXISTS '$username'@'$host' IDENTIFIED BY '$password'";
+			$sql = "CREATE USER IF NOT EXISTS '$username'@'$this->host' IDENTIFIED BY '$this->password'";
 			if(!mysqli_query($connection,$sql)){
 				$this->errors = "Error creating database: " . mysqli_error($connection);
 				$this->close(connection);
@@ -345,7 +353,9 @@
 				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
+
 			$sql = "GRANT $permissions ON $database_name.$table_name TO '$username'@'$host'";
+			echo "$sql";
 			if(!mysqli_query($connection,$sql)){
 				$this->errors = "Error creating database: " . mysqli_error($connection);
 				$this->close($connection);
@@ -364,6 +374,7 @@
 			}
 
 			$sql = "REVOKE $permissions ON $database_name.$table_name FROM '$username'@'$host'";
+			echo "$sql";
 			if(!mysqli_query($connection,$sql)){
 				$this->errors = "Error creating database: " . mysqli_error($connection);
 				$this->close($connection);
@@ -382,6 +393,7 @@
 			}
 
 			$sql = "DROP USER '$username'@'$host'";
+			echo "$sql";
 			if(!mysqli_query($connection,$sql)){
 				$this->errors = "Error creating database: " . mysqli_error($connection);
 				$this->close($connection);

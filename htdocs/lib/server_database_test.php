@@ -29,10 +29,9 @@
 	//$server->dropDatabase("NT_RAYS");
 
 	$user = new User('localhost','peter','password');
-	$user->createUser('%','ganesh','password');
-	//$user->revoke('ALL PRIVILEGES','jagga','jagga_table','%','ganesh');
-	//$user->grant('DELETE,INSERT,SELECT,UPDATE','jagga','jagga_table','%','ganesh');
-	//$user->dropUser('%','ganesh');
-	// echo $user->getErrors();
+	$user->createUser('localhost','ganesh','password');
+	//$user->revoke('ALL','*','*','localhost','ganesh');
+	$user->dropUser('localhost','ganesh');
+	echo $user->getErrors();
 
 ?>	
