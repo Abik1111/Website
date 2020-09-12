@@ -184,6 +184,9 @@ body
     left:-5px;
     vertical-align: middle;
 }
+/*
+this is an update
+*/
 .photo:hover span:nth-child(2){
     -webkit-transition: visibility 0.5s, opacity 0.5s linear,width 0.5s linear; 
     transition: visibility 0.5s, opacity 0.5s linear;
