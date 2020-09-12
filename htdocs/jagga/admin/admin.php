@@ -270,6 +270,10 @@
 			padding: 20px;
 			font-weight: bold;
 		}
+		.search{
+			background-color: #cbb09c;
+			font-size: 20px;
+		}
 	</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
@@ -278,9 +282,15 @@
 			<a href="?link=home" class = "brand-text">ADMIN LOGIN</a>
 		</header>
 		<?php if($_SESSION['connected']==true): ?>
-			<nav class = "white z-depth-0" c>
+			<nav class = "white z-depth-0">
 				<div class = "container">
-					<ul id = "nav-mobile" class = "right hide-on-down">
+					<ul id = "nav-mobile" class = "<?php echo($_SESSION['home']==true?'right':'left')?> hide-on-down" >
+						<li>
+							<?php if($_SESSION['home']!=true): ?>
+							<input type="search" name="Search" class="search" placeholder="  search "
+								 size="<?php echo($_SESSION['root']==true?90:103)?>">
+							<?php endif; ?>
+						</li>
 						<?php if($_SESSION['connected']==true && $_SESSION['root']==true):?>
 							<li><a href="?link=home" class ="btn brand z-depth-0">Home</a></li>
 						<?php endif; ?>
@@ -293,6 +303,7 @@
 					</ul>
 				</div>
 			</nav>
+			<br/><br/><br/>
 		<?php endif; ?>
 
 	<?php if($_SESSION['connected']==true && $_SESSION['home']==true && $_SESSION['root']==true): ?>
