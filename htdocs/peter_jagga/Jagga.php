@@ -22,6 +22,8 @@
 	define('DESCRIPTION', 'description');
 	define('AVAILABILITY', 'availability');
 	define('OWNER_CONTACT', 'owner_contact');
+	//-----------------------------
+	define('SRC', 'src');
 	
 	
 	//Blueprint of object where datas to be retrieved
@@ -488,7 +490,8 @@
 					$string .= '"'.ID.'": '.strVal($data[$i]->getId()).','."\n";
 					$string .= '"'.LOCATION.'": "'.strVal($data[$i]->getLocation()).'",'."\n";
 					$string .= '"'.AREA.'": '.strVal($data[$i]->getArea()).','."\n";
-					$string .= '"'.PRICE.'": '.strVal($data[$i]->getPrice())."\n";
+					$string .= '"'.PRICE.'": '.strVal($data[$i]->getPrice()).','."\n";
+					$string .= '"'.SRC.'": "'.strVal($data[$i]->getCoverSrc()).'"'."\n";
 					$string .= '}';
 				}
 			}
