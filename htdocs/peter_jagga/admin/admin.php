@@ -259,14 +259,14 @@
 			font-size: 30px;
 		}
 		.list{
-			background-color: #cbb09c;
-			height: 100px;
+			background-color: #FFFFFF;
+			height: 80px;
 			display: block;
 			margin: 10px;
 		}
 		.list-text{
-			color: #FFFFFF;
-			font-size: 30px;
+			color: #9F9F9F;
+			font-size: 20px;
 			padding: 20px;
 			font-weight: bold;
 		}
@@ -366,35 +366,47 @@
 	<?php elseif($_SESSION['connected']==true && $_SESSION['datas']==true): ?>
 		<?php if($_SESSION['dataID']!=0): ?>
 			<?php 
-				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
-				$temp = $_SESSION['dataID'];
-				$datas = $db->select('jagga_table',null,"id=$temp");
-				$data = $datas[0];
+				$jagga = new JaggaRetrieve($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
+				$jagga->loadFromDatabase($_SESSION['dataID']);
 			?>
-			<div class = "container center grey-text">
- 				<h4><?php echo htmlspecialchars($data['address']); ?></h4>
- 				<p>Area : <?php echo htmlspecialchars($data['area']); ?></p>
- 				<p>Price : <?php echo htmlspecialchars($data['price']); ?></p>
- 				<h5>Description:</h5>
- 				<p><?php echo htmlspecialchars($data['description'])?></p>
- 				<h5>Owner Contact:</h5>
- 				<p><?php echo htmlspecialchars($data['owner_contact'])?></p>
- 				<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
- 					<input type="submit" name="delete_data" value = "delete" class = "btn brand z-depth-0">
- 				</form>
+			<div class = "container grey-text">
+				<form class = "white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+					<label>Address:</label>
+					<input type="text" name="address" value="<?php $jagga->echoLocation(); ?>">
+					<div class = "red-text"><?php echo $errors['address']; ?></div>
+					<label>Area(Square meter):</label>
+					<input type="number" name="area" value="<?php $jagga->echoArea(); ?>">
+					<div class = "red-text"><?php echo $errors['area']; ?></div>
+					<label>Price(Rs):</label>
+					<input type="number" name="price" value="<?php $jagga->echoPrice(); ?>">
+					<div class = "red-text"><?php echo $errors['price']; ?></div>
+					<label>Owner Contact(Not shown to clients):</label>
+					<input type="text" name="owner_contact" value="<?php $jagga->echoOwnerContact(); ?>">
+					<label>Description:</label>
+					<textarea name="description" rows="20" cols="30"><?php $jagga->echoDescription(); ?></textarea>
+					<div class = "red-text"><?php echo $errors['description']; ?></div>
+					<div class = "red-text"><?php echo $errors['owner_contact']; ?></div>
+					<div class = "center">
+						<input type="submit" name="add_data" value = "Update" class="right btn brand z-depth-0">
+					</div>
+					<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+						<input type="submit" name="delete_data" value = "delete" class = "left btn brand z-depth-0">
+					</form>
+				</form>
  			</div>
 		<?php else: ?>
 			<div>
-				<?php 
-					$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
-					$datas = $db->select('jagga_table');
+				<?php
+					$jagga = new JaggaSelect($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
+					$datas = $jagga->getAllJagga();
 				?>
 				<ul class="container">
 				<?php foreach ($datas as $data):?>
 					<li class="list">
-						<a href="?dataID=<?php echo($data['id']); ?>" class="list-text">
-							<?php echo $data['address']."&nbsp;(".$data['area'].
-								" m2 &nbsp;&nbsp;&nbsp;Rs. ".$data['price'].")";?>
+						<img src="<?php $data->echoCoverSrc();?>" height=80 width=120>
+						<a href="?dataID=<?php $data->echoId(); ?>" class="list-text">
+							<?php echo $data->getLocation()."&nbsp;(".$data->getArea().
+								" m2 &nbsp;&nbsp;&nbsp;Rs. ".$data->getPrice().")";?>
 						</a>
 					</li>
 				<?php endforeach; ?>
@@ -435,11 +447,11 @@
 				<label>Price(Rs):</label>
 				<input type="number" name="price" value="<?php echo $price; ?>">
 				<div class = "red-text"><?php echo $errors['price']; ?></div>
-				<label>Description:</label>
-				<input type="text" name="description" value="<?php echo $description; ?>">
-				<div class = "red-text"><?php echo $errors['description']; ?></div>
-				<label>Owner Contact:</label>
+				<label>Owner Contact(Not shown to clients):</label>
 				<input type="text" name="owner_contact" value="<?php echo $owner_contact; ?>">
+				<label>Description:</label>
+				<textarea name="description" rows="20" cols="30"><?php echo $description; ?></textarea>
+				<div class = "red-text"><?php echo $errors['description']; ?></div>
 				<div class = "red-text"><?php echo $errors['owner_contact']; ?></div>
 				<div class = "center">
 					<input type="submit" name="add_data" value = "add" class="btn brand z-depth-0">
