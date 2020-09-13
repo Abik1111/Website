@@ -1,14 +1,13 @@
 <?php
 	class ImageHandler{
-		private $absPath;
-		private $relPath;
-		//Relative to current location
+		private $absPath;//Absolute path of folder
+		private $relPath;//Relative path of folder
 		
 		//Sets up folder where images are to be stored
 		public function __construct($imagePath){
 			//Create folder if doesn't exist already
 			if(!file_exists($imagePath)){
-				mkdir($imagePath);	
+				mkdir($imagePath);
 			}
 			
 			$this->relPath =$imagePath.'/';
@@ -41,6 +40,30 @@
 			
 			//Transferring the image from temp. location to required location
 			move_uploaded_file($_FILES[$nameInForm]['tmp_name'], $this->absPath.$image_src);
+		}
+		
+		//Saves the images inside imageFolder inside imagePath
+		public function saveImages($imageFolder, $nameInForm){
+			$folder_name = strVal($imageFolder);
+			
+			//Making new directory inside images folder if doesn't exist
+			if(!file_exists($this->relPath.$folder_name)){
+				mkdir($this->relPath.$folder_name);	
+			}
+			
+			for($i=0; $i<sizeof($_FILES[$nameInForm]['name']); $i++){
+				//Getting the name of image
+				$image_name = $_FILES[$nameInForm]['name'][$i];
+				$image_src = $folder_name.'/'.$image_name;
+				
+				//Adding copy- prefix if file already exists
+				if(file_exists($this->relPath.$image_src)){
+					$image_src = $folder_name.'/'.'copy-'.$image_name;
+				}
+				
+				//Transferring the image from temp. location to required location
+				move_uploaded_file($_FILES[$nameInForm]['tmp_name'][$i], $this->absPath.$image_src);
+			}
 		}
 		
 		//Return the names of images in the folder passed in alphabetical ascending order
@@ -97,5 +120,5 @@
 				rmdir(($this->relPath.$folder_name));
 			}
 		}
-	};
+	}
 ?>

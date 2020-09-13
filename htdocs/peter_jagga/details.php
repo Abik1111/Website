@@ -6,7 +6,7 @@
 		$jagga = new JaggaDelete('localhost', 'dilip', '123456789');
 		$result = $jagga->delete($_POST['delete_id']);
 		if($result){
-			echo 'success';
+			header('location:index.php');
 		}
 	}
 	
