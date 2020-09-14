@@ -48,8 +48,7 @@
 				id BIGINT NOT NULL AUTO_INCREMENT,
 				username CHAR(255) NOT NULL,
 				password CHAR(255) NOT NULL,
-				phone int NOT NULL,
-				property_id BIGINT NOT NULL,
+				contact CHAR(255) NOT NULL,
 				details CHAR(255),
 				approved_properties TEXT NOT NULL,
 				pending_properties TEXT NOT NULL,
@@ -58,7 +57,7 @@
 				id BIGINT NOT NULL AUTO_INCREMENT,
 				username CHAR(255) NOT NULL,
 				password CHAR(255) NOT NULL,
-				phone int NOT NULL,
+				contact  CHAR(255) NOT NULL,
 				details CHAR(255),
 				primary key(id)");
 			$datas0 = ['id'=>'1','username'=>$user,'password'=>$password];
