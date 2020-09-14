@@ -24,6 +24,7 @@
 				owner_contact CHAR(255) NOT NULL,
 				availability INT NOT NULL,
 				is_jagga INT NOT NULL,
+				user_id BIGINT NOT NULL, 
 				primary key(id)");
 			PropertyDatabase::$database->createTable("property_table_request","
 				id BIGINT NOT NULL AUTO_INCREMENT,
@@ -35,6 +36,7 @@
 				owner_contact CHAR(255) NOT NULL,
 				availability INT NOT NULL,
 				is_jagga INT NOT NULL,
+				user_id BIGINT NOT NULL, 
 				primary key(id)");
 			PropertyDatabase::$database->createTable("property_agent","
 				id BIGINT NOT NULL AUTO_INCREMENT,
@@ -49,6 +51,8 @@
 				phone int NOT NULL,
 				property_id BIGINT NOT NULL,
 				details CHAR(255),
+				approved_properties TEXT NOT NULL,
+				pending_properties TEXT NOT NULL,
 				primary key(id)");
 			PropertyDatabase::$database->createTable("property_client_request","
 				id BIGINT NOT NULL AUTO_INCREMENT,
