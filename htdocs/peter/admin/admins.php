@@ -22,8 +22,8 @@
 			$server = new Server($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
 			$connection = $server->getConnection();
 			if($connection!=null){
-				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
-				$temp =  $db->select("jagga_user");
+				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
+				$temp =  $db->select("property_agent");
 				$username = $temp[0]['username'];
 				if($username==$_SESSION['username']){
 					clear();
@@ -98,12 +98,12 @@
 	//delete user
 	if($_SESSION['connected']==true){
 		if(isset($_POST['delete_user'])){
-			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
 			$id = $_SESSION['userID'];
-			$temp =  $db->select("jagga_user",null,"id='$id'");
+			$temp =  $db->select("property_agent",null,"id='$id'");
 			$user = new User($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
 			$user->dropUser('%',$temp[0]['username']);
-			$db->delete("jagga_user","id='$id'");
+			$db->delete("property_agent","id='$id'");
 			clear();
 			$_SESSION['connected']=true;
 			$_SESSION['users']=true;
@@ -113,9 +113,9 @@
 	//delete data
 	if($_SESSION['connected']==true){
 		if(isset($_POST['delete_data'])){
-			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+			$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
 			$id = $_SESSION['dataID'];
-			$db->delete("jagga_table","id='$id'");
+			$db->delete("property_table","id='$id'");
 			clear();
 			$_SESSION['connected']=true;
 			$_SESSION['datas']=true;
@@ -146,18 +146,18 @@
 			$newDetails = $_POST['details'];
 
 			if($newPassword==$retypePassword){
-				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
-				$temp =  $db->select("jagga_user",null,"username='$newUsername'");
+				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
+				$temp =  $db->select("property_agent",null,"username='$newUsername'");
 				if(!empty($temp)){
 				 	$errors['username'] = 'This username already exist<br/>';
 				}
 				if(!array_filter($errors)){
 					$user = new User($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
 					$user->createUser('%',$newUsername,$newPassword);
-					$user->grant(" DELETE,INSERT,SELECT,UPDATE ",'jagga','jagga_table','%',$newUsername);
+					$user->grant(" DELETE,INSERT,SELECT,UPDATE ",'property','property_table','%',$newUsername);
 					
 					$datas0 = ['username'=>$newUsername,'password'=>$newPassword,'details'=>$newDetails];
-					$db->insert("jagga_user",$datas0);
+					$db->insert("property_agent",$datas0);
 					clear();
 					$_SESSION['connected']=true;
 					$_SESSION['users']=true;
@@ -202,10 +202,10 @@
 			}
 
 			if(!array_filter($errors)){
-				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+				$db =  new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
 				$data = ['address'=>$address,'area'=>$area,'price'=>$price,'description'=>$description,
 				  		'owner_contact'=>$owner_contact,'availability'=>1];
-				$db->insert('jagga_table',$data);
+				$db->insert('property_table',$data);
 				clear();
 				$_SESSION['connected']=true;
 				$_SESSION['datas']=true;
@@ -218,7 +218,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Ghar Jagga</title>
+	<title>Ghar property</title>
 	<!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="
 		https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -259,14 +259,14 @@
 			font-size: 30px;
 		}
 		.list{
-			background-color: #FFFFFF;
-			height: 80px;
+			background-color: #cbb09c;
+			height: 100px;
 			display: block;
 			margin: 10px;
 		}
 		.list-text{
-			color: #9F9F9F;
-			font-size: 20px;
+			color: #FFFFFF;
+			font-size: 30px;
 			padding: 20px;
 			font-weight: bold;
 		}
@@ -330,9 +330,9 @@
 	<?php elseif($_SESSION['connected']==true && $_SESSION['users']==true && $_SESSION['root']==true): ?>
 		<?php if($_SESSION['userID']!=0): ?>
 			<?php 
-				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
+				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
 				$temp = $_SESSION['userID'];
-				$users = $db->select('jagga_user',null,"id=$temp");
+				$users = $db->select('property_agent',null,"id=$temp");
 				$user = $users[0];
 			?>
 			<div class = "container center grey-text">
@@ -347,8 +347,8 @@
 		<?php else: ?>
 			<div>
 				<?php 
-					$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'jagga');
-					$users = $db->select('jagga_user');
+					$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
+					$users = $db->select('property_agent');
 				?>
 				<ul class="container">
 				<?php foreach ($users as $user):?>
@@ -366,47 +366,35 @@
 	<?php elseif($_SESSION['connected']==true && $_SESSION['datas']==true): ?>
 		<?php if($_SESSION['dataID']!=0): ?>
 			<?php 
-				$jagga = new JaggaRetrieve($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
-				$jagga->loadFromDatabase($_SESSION['dataID']);
+				$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
+				$temp = $_SESSION['dataID'];
+				$datas = $db->select('property_table',null,"id=$temp");
+				$data = $datas[0];
 			?>
-			<div class = "container grey-text">
-				<form class = "white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-					<label>Address:</label>
-					<input type="text" name="address" value="<?php $jagga->echoLocation(); ?>">
-					<div class = "red-text"><?php echo $errors['address']; ?></div>
-					<label>Area(Square meter):</label>
-					<input type="number" name="area" value="<?php $jagga->echoArea(); ?>">
-					<div class = "red-text"><?php echo $errors['area']; ?></div>
-					<label>Price(Rs):</label>
-					<input type="number" name="price" value="<?php $jagga->echoPrice(); ?>">
-					<div class = "red-text"><?php echo $errors['price']; ?></div>
-					<label>Owner Contact(Not shown to clients):</label>
-					<input type="text" name="owner_contact" value="<?php $jagga->echoOwnerContact(); ?>">
-					<label>Description:</label>
-					<textarea name="description" rows="20" cols="30"><?php $jagga->echoDescription(); ?></textarea>
-					<div class = "red-text"><?php echo $errors['description']; ?></div>
-					<div class = "red-text"><?php echo $errors['owner_contact']; ?></div>
-					<div class = "center">
-						<input type="submit" name="add_data" value = "Update" class="right btn brand z-depth-0">
-					</div>
-					<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-						<input type="submit" name="delete_data" value = "delete" class = "left btn brand z-depth-0">
-					</form>
-				</form>
+			<div class = "container center grey-text">
+ 				<h4><?php echo htmlspecialchars($data['address']); ?></h4>
+ 				<p>Area : <?php echo htmlspecialchars($data['area']); ?></p>
+ 				<p>Price : <?php echo htmlspecialchars($data['price']); ?></p>
+ 				<h5>Description:</h5>
+ 				<p><?php echo htmlspecialchars($data['description'])?></p>
+ 				<h5>Owner Contact:</h5>
+ 				<p><?php echo htmlspecialchars($data['owner_contact'])?></p>
+ 				<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+ 					<input type="submit" name="delete_data" value = "delete" class = "btn brand z-depth-0">
+ 				</form>
  			</div>
 		<?php else: ?>
 			<div>
-				<?php
-					$jagga = new JaggaSelect($_SESSION['host'],$_SESSION['username'],$_SESSION['password']);
-					$datas = $jagga->getAllJagga();
+				<?php 
+					$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
+					$datas = $db->select('property_table');
 				?>
 				<ul class="container">
 				<?php foreach ($datas as $data):?>
 					<li class="list">
-						<img src="<?php $data->echoCoverSrc();?>" height=80 width=120>
-						<a href="?dataID=<?php $data->echoId(); ?>" class="list-text">
-							<?php echo $data->getLocation()."&nbsp;(".$data->getArea().
-								" m2 &nbsp;&nbsp;&nbsp;Rs. ".$data->getPrice().")";?>
+						<a href="?dataID=<?php echo($data['id']); ?>" class="list-text">
+							<?php echo $data['address']."&nbsp;(".$data['area'].
+								" m2 &nbsp;&nbsp;&nbsp;Rs. ".$data['price'].")";?>
 						</a>
 					</li>
 				<?php endforeach; ?>
@@ -447,11 +435,11 @@
 				<label>Price(Rs):</label>
 				<input type="number" name="price" value="<?php echo $price; ?>">
 				<div class = "red-text"><?php echo $errors['price']; ?></div>
-				<label>Owner Contact(Not shown to clients):</label>
-				<input type="text" name="owner_contact" value="<?php echo $owner_contact; ?>">
 				<label>Description:</label>
-				<textarea name="description" rows="20" cols="30"><?php echo $description; ?></textarea>
+				<input type="text" name="description" value="<?php echo $description; ?>">
 				<div class = "red-text"><?php echo $errors['description']; ?></div>
+				<label>Owner Contact:</label>
+				<input type="text" name="owner_contact" value="<?php echo $owner_contact; ?>">
 				<div class = "red-text"><?php echo $errors['owner_contact']; ?></div>
 				<div class = "center">
 					<input type="submit" name="add_data" value = "add" class="btn brand z-depth-0">
@@ -475,7 +463,7 @@
 		</section>
 	<?php endif; ?>
 	<footer class = "section">
- 		<div class = "center grey-text">@Copyright 2020 Ghar Jagga</div>
+ 		<div class = "center grey-text">@Copyright 2020 Ghar property</div>
 	</footer>
 </body>
 
