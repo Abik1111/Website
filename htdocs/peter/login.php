@@ -50,7 +50,8 @@
 		$_SESSION['add_data']=false;
 	}
 
-	include('lib/Server_Database.php');
+	//include('lib/Server_Database.php');
+	include('Jagga.php');
 	include('admin/admin.php');
  ?>
 

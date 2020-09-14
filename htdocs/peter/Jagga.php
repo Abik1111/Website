@@ -219,90 +219,6 @@
 		
 	}
 
-	//Blueprint of object where datas to be updated
-	Class JaggaUpdate{
-		private $id;//id of jagga
-		private $location;//Location of ghar jagga
-		private $area;//Area in m2
-		private $price;//Price of ghar, jagga
-		private $images;//Variable name of image getter in post
-		private $description;//Description of ghar jagga
-		private $available;//If the property is availabe or not
-		private $postedTime;//Posted time in the website
-		private $dataBase;//Database manager of jagga
-		private $ownerContact;//Contact address of owner
-		
-		//Connects to database and image handler class
-		public function __construct($host,$username,$password){
-			$this->dataBase = new Database($host,$username,$password,DATABASE);
-		}
-		
-		//Setter for jagga datas
-		public function addLocation($postName){
-			$this->location = strVal($_POST[$postName]);
-		}
-		
-		public function addArea($postName){
-			$this->area = strVal($_POST[$postName]);
-		}
-		
-		public function addPrice($postName){
-			$this->price = $_POST[$postName];
-		}
-		
-		public function addDescription($postName){
-			$this->description = strVal($_POST[$postName]);
-		}
-		
-		public function addOwnerContact($postName){
-			$this->ownerContact = strVal($_POST[$postName]);
-		}
-		
-		public function addImages($postName){
-			$this->images = $postName;
-		}
-		
-		//Save the class data into the database
-		public function saveToDatabase(){
-			$data = array();
-			$data[LOCATION] = $this->location;
-			$data[AREA] = $this->area;
-			$data[PRICE] = $this->price;
-			$data[DESCRIPTION] = $this->description;
-			$data[AVAILABILITY] = 1;
-			$data[OWNER_CONTACT] = $this->ownerContact;
-			$id = $this->dataBase->insert('jagga_table', $data);
-			if($id == false){
-				return false;
-			}
-			$handler = new ImageHandler(IMAGE_FOLDER);
-			$handler->saveImages($id, $this->images);
-			echo 'successful id = '.$id;
-			return true;
-		}
-		
-		//Save into database without saving in class
-		public function saveData($arg_location, $arg_area, $arg_price, $arg_description, $arg_owner_contact, $arg_images){
-			$data = array();
-			$data[LOCATION] = strVal($_POST[$arg_location]);
-			$data[AREA] = $_POST[$arg_area];
-			$data[PRICE] = $_POST[$arg_price];
-			$data[DESCRIPTION] = strVal($_POST[$arg_description]);
-			$data[AVAILABILITY] = 1;
-			$data[OWNER_CONTACT] = strVal($_POST[$arg_owner_contact]);
-			$id = $this->dataBase->insert(TABLE, $data);
-			if($id == false){
-				//Error handling
-				return false;
-			}
-			$handler = new ImageHandler(IMAGE_FOLDER);
-			$handler->saveImages($id, $arg_images);
-			return $id;
-		}
-		
-		
-	}
-
 	//Class just to delete Jagga
 	Class JaggaDelete{
 		private $dataBase;
@@ -400,7 +316,7 @@
 		}
 		
 		//Simply returns all the jagga details
-		public function getAllJagga($numberOfJagga, $indexOfPage){
+		public function getAllJagga($numberOfJagga='', $indexOfPage=''){
 			$order = DATE_POSTED.' DESC';
 			$fields = array(ID,AREA,PRICE,LOCATION);
 			if(is_numeric($numberOfJagga) && is_numeric($indexOfPage)){
