@@ -31,7 +31,6 @@
 					$_SESSION['connected']=true;
 					$_SESSION['datas']=true;
 				}
-
 				mysqli_close($connection);
 			}else{
 				$errors['password'] = 'Username and password do not match';
