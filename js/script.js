@@ -26,15 +26,18 @@
 
     });
 
-    myNameSpc.loadTabResults=function(type){
-        if(type==="HOT"){
+    myNameSpc.loadTabResults=function(tabType){
+        if(tabType===0){
             console.log("HOT");
+            global.tab=0;
         }
-        else if(type==="TOP"){
+        else if(tabType===1){
             console.log("TOP");
+            global.tab=1;
         }
         else{
             console.log("BEST");
+            global.tab=2;
         }
         $ajaxUtils.sendGetRequest(threeTabResults, buildAndShowTabResultsHTML);
 
@@ -44,7 +47,20 @@
         $ajaxUtils.sendGetRequest(searchResultsBodyHTML,
             function (searchResultsBodyHTML) {
                 var searchResultsViewHTML = buildTabViewHTML(results, searchResultsBodyHTML);
+                finalHTML="";
+                var tabNames=["Hot Properties","Top Viewed","Best Buys"]
+                for (var i=0;i<3;i++){
+                    if (global.tab===i){
+                        finalHTML+='<li role="presentation" class="active"><a onclick="$myNameSpc.loadTabResults('+i+')">'+tabNames[i]+'</a></li>';
+                    }
+                    else{
+                        finalHTML+='<li role="presentation"><a onclick="$myNameSpc.loadTabResults('+i+')">'+tabNames[i]+'</a></li>';
+                    }
+                }
+                insertHtml("#specific-list", finalHTML);
                 insertHtml("#property", searchResultsViewHTML)
+                
+
             }, false);
     }
 

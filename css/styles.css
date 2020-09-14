@@ -121,7 +121,9 @@ body
     font-size: 2em;   
 }
 
-
+#specific-list:hover{
+    cursor:pointer;
+}
  /*property contents*/
 #heading-1{
     margin-bottom:20px;
