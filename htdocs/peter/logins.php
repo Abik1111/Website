@@ -51,6 +51,6 @@
 	}
 
 	include('lib/Server_Database.php');
-	include('admin/admin.php');
+	include('admin/admins.php');
  ?>
 
