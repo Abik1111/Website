@@ -7,8 +7,6 @@
 	if(!$_SESSION['is_root']){
 		header("Location:home.php");
 	}
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,12 +28,12 @@
 	<section>
 		<?php 
 			$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
-			$users = $db->select('property_client_request',['id','username']);
+			$users = $db->select('property_client',['id','username']);
 		?>
 		<ul>
 			<?php foreach ($users as $user):?>
 				<li>
-					<a href="?userID=<?php echo($user['id']); ?>">
+					<a href="client_details.php?userID=<?php echo($user['id']); ?>">
 						<?php echo $user['username']."&nbsp;(".$user['id'].")";?>
 					</a>
 				</li>
