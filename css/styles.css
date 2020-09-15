@@ -329,3 +329,58 @@ body
         left:43px;
     } */ 
 }
+
+.text
+{
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+     border: 1px solid #ccc !important;
+    margin-top: 00px;
+    margin-left: 70px;
+}
+.text : hover
+{
+   
+     border: 1px solid #ccc !important; 
+}
+
+
+
+    
+
+
+.label
+{
+    display: inline-block;
+    margin-top: 10px;
+    color: black;
+    margin-left:65px;
+}
+.select
+{
+    width: 250px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc !important; 
+    margin-left: 70px;
+    margin-top: 0px;
+    
+    
+}
+
+
+a.btn
+{
+    margin-top: 100px;
+    border-radius: 20px;
+    width: 400px;
+    font-size: 20px;
+    margin-left: 0px;
+}
+a.btn-first
+{
+    background-color: darkorange;
+    color: #fff;
+    margin-bottom: 100px;
+}
