@@ -21,6 +21,9 @@
 				<a href="home.php">Home</a>
 			</li>
 			<li>
+				<a href="create_agent.php">Create</a>
+			</li>
+			<li>
 				<a href="logout.php">Log Out</a>
 			</li>
 		</ul>
@@ -28,15 +31,17 @@
 	<section>
 		<?php 
 			$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
-			$users = $db->select('property_client',['id','username']);
+			$users = $db->select('property_agent',['id','username']);
 		?>
 		<ul>
 			<?php foreach ($users as $user):?>
-				<li>
-					<a href="?userID=<?php echo($user['id']); ?>">
-						<?php echo $user['username']."&nbsp;(".$user['id'].")";?>
-					</a>
-				</li>
+				<?php if($user['id']>1): ?>
+					<li>
+						<a href="agent_details.php?userID=<?php echo($user['id']); ?>">
+							<?php echo $user['username']."&nbsp;(".$user['id'].")";?>
+						</a>
+					</li>
+				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
 	</section>

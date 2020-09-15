@@ -4,7 +4,7 @@
 
 	session_start();
 
-	if(!$_SESSION['is_root']){
+	if(!$_SESSION['is_connected']){
 		header("Location:home.php");
 	}
 ?>
@@ -26,7 +26,7 @@
 		</ul>
 	</nav>
 	<section>
-		pending datas here
+		datas here
 	</section>
 
 </body>

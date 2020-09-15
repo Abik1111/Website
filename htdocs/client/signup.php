@@ -81,7 +81,7 @@
 				<label>Already have account Sign in </label>
 				<a href="login.php">here</a>
 			</div>
-			<div">
+			<div>
 				<input type="submit" name="signup" value = "Sign Up">
 			</div>
 		</form>
