@@ -22,7 +22,7 @@
 
     document.addEventListener("DOMContentLoaded",
     function(event){
-        myNameSpc.loadTabResults("HOT");
+        myNameSpc.loadTabResults(0);
 
     });
 
