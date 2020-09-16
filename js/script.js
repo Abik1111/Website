@@ -2,7 +2,6 @@
 
     var myNameSpc = {};
     var threeTabResults="data/tab3.json";
-
     var searchResults = "data/data1.json";
     var searchResultsTitleHTML = "snippets/title.html";
     var searchResultsBodyHTML = "snippets/searchresult.html";
