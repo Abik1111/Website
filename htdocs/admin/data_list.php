@@ -1,22 +1,10 @@
 <?php
-	include 'Jagga.php';
 	define('DATAS_IN_PAGE', 5);
-	
-	session_start();
-	if(!$_SESSION['is_connected']){
-		header("Location:login.php");
-	}
 	$current_page = 1;
 	$total_page = 1;
-	$selector = new JaggaSelect($_SESSION['host'], $_SESSION['username'], $_SESSION['password']);
+	$selector = new JaggaSelect('localhost', 'dilip', '123456789');
 	$searching = false;
 	$results = 0;
-	
-	
-	//Set session if not exist
-	if(!array_key_exists('data_search', $_SESSION)){
-		$_SESSION['data_search']='';
-	}
 	
 	//Selcting the page
 	if(isset($_GET['page'])){
@@ -52,7 +40,8 @@
 </head>
 
 <body>
-	<a href="data_add.php">+Add new data</a>
+	<a href="?link=data_add">+Add new data</a>
+	<a href="?link=request_data_list">View request data</a>
 	<br/>
 	<form action = "<?php echo $_SERVER['PHP_SELF']?>" method="GET">
 		<input type="text" name="search_key" value="<?php echo $_SESSION['data_search'];?>"/>
@@ -71,7 +60,7 @@
 	<?php foreach($data as $datum):?>
 	<img src="<?php $datum->echoCoverSrc();?>" width=150 height=100>
 	
-	<a href="data_update.php?id=<?php $datum->echoId();?>">
+	<a href="?link=data_update&id=<?php $datum->echoId();?>">
 	<?php
 		$datum->echoId();echo '-'; 
 		$datum->echoLocation();echo ' '; 
@@ -85,15 +74,15 @@
 	<br/>
 	
 	<?php  if($current_page != 1):?>
-	<a href="?page=<?php echo($current_page-1);?>">&lt&lt prev</a>
+	<a href="?link=data_list&page=<?php echo($current_page-1);?>">&lt&lt prev</a>
 	<?php endif;?>
 	
 	<?php for($i=0; $i<$total_page; $i++):?>
-	<a href="?page=<?php echo($i+1);?>"><?php echo ($i+1).' '?></a>
+	<a href="?link=data_list&page=<?php echo($i+1);?>"><?php echo ($i+1).' '?></a>
 	<?php endfor;?>
 	
 	<?php  if($current_page != $total_page):?>
-	<a href="?page=<?php echo($current_page+1);?>">next page&gt&gt</a>
+	<a href="?link=data_list&page=<?php echo($current_page+1);?>">next page&gt&gt</a>
 	<?php endif;?>
 	
 </body>

@@ -23,16 +23,19 @@
 			<li>
 				<a href="login.php">Log Out</a>
 			</li>
+			<li>
+				<a href="data_request.php">Request New Data</a>
+			</li>
 		</ul>
 	</nav>
 	<?php if(!$_SESSION['is_pending']): ?>
 	<section>
 		<ul>
 			<li>
-				<a href="#">Datas</a>
+				<a href="#">Datas Submitted</a><?php//TODO::Add indices?>
 			</li>
 			<li>
-				<a href="#">Pending Datas</a>
+				<a href="#">Pending Datas</a><?php//TODO::Add indices?>
 			</li>
 		</ul>
 	</section>

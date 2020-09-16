@@ -218,7 +218,7 @@
 			return $last_id;
 		}
 
-		public function select($table_name,$fields_array=null,$conditions="true"){
+		public function select($table_name,$fields_array=null,$conditions=null, $order=null, $limit=null, $offset=null){
 			$connection = $this->connect();
 			if(!$connection){
 				$this->errors ="Connection Error".mysqli_connect_error();
@@ -232,11 +232,30 @@
 				$sql = "SELECT ".$fields." FROM ".$table_name;
 			}
 
-			$sql=$sql." WHERE ".$conditions;
+			if($conditions!=null){
+				$sql .= " WHERE ".$conditions;
+			}
+			
+			if($order!=null){
+				$sql .=" ORDER BY ".$order;
+			}
+			
+			if($limit!=null){
+				$sql .=" LIMIT ".$limit;
+			}
+			
+			if($offset!=null){
+				$sql .=" OFFSET ".$offset;
+			}
 
 			$result = mysqli_query($connection,$sql);
+			if(!$result){
+				$this->errors ="Query Error".mysqli_error($connection);
+				return null;
+			}
 
 			$datas = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
 			mysqli_free_result($result);
 			
 			$this->close($connection);

@@ -71,7 +71,7 @@
 	}
 
 	/////////////////
-	PropertyDatabase::create('localhost','peter','password');
+	PropertyDatabase::create('localhost','dilip','123456789');
 
 
  ?>
