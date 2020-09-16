@@ -62,41 +62,7 @@
             html = insertProperty(html, "Price", desiredProperties[i].Price);
             finalHTML += html;
         }
-        finalHTML += "</div>"
-//        finalHTML+='<div class="center">';
-//        finalHTML+="<div class='pagination'>";
-//        if (global.currentPage>1){
-//            pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})">&laquo;</a>';
-//            pageString=insertProperty(pageString, "i", (global.currentPage-1));
-//            
-//        }
-//        else{
-//            pageString='<a href="#" onclick="$myNameSpc.loadSearchData(1)">&laquo;</a>';
-//        }
-//        finalHTML+=pageString;
-//        for (var i=0;i<numOfPages;i++){
-//            if ((i+1)==global.currentPage){
-//                pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})" class="active">{{i}}</a>';
-//                pageString=insertProperty(pageString, "i", i+1);
-//            }
-//            else{
-//                pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})">{{i}}</a>';
-//                pageString=insertProperty(pageString, "i", i+1);
-//            }
-//            finalHTML+=pageString;
-//        }
-//        if (global.currentPage<numOfPages){
-//            pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})">&raquo;</a>';
-//            pageString=insertProperty(pageString, "i", (global.currentPage+1));
-//            
-//        }
-//        else{
-//            pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})">&laquo;</a>';
-//            pageString=insertProperty(pageString, "i", numOfPages);
-//        }
-//        finalHTML+=pageString;
-//        finalHTML += "</div></div>";
-//        
+        finalHTML += "</div>"    
         pagination=insertPagination(numOfPages);
         finalHTML+=pagination;
         return finalHTML
