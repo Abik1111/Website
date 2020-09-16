@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 (function (global) {
 
     var myNameSpc = {};
@@ -221,3 +223,4 @@
     }
     global.$myNameSpc = myNameSpc;
 })(window);
+>>>>>>> eb8469966c6027d05b490a0beb5be81def804ad6
