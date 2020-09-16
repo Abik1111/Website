@@ -33,9 +33,22 @@
 							mysqli_close(conn);
 			String getError();
 
+		class User
+			__construct(String host,String username,String password);
+			boolean createUser(String host,String username,String password);
+			boolean grant(String permissions,String database_name,String table_name,String host,String username);
+				e.g:- permissions = "ALL","CREATE,DROP,DELETE,INSERT,SELECT,UPDATE"
+					database_name = * means all
+					table_name = * means all
+					host = % means all
+			boolean revoke(String permissions,String database_name,String table_name,String host,String username);
+				e.g:- permissions = "ALL","All PRIVILEGES","CREATE,DROP,DELETE,INSERT,SELECT,UPDATE"
+					database_name = * means all
+					table_name = * means all
+					host = % means all
+			boolean dropUser(String host,String username);
+			String getError();
 	**/
-
-
 
 	class Server{
 		private $host;
@@ -60,18 +73,18 @@
 		public function createDatabase($database_name){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
 
 			$sql = "CREATE DATABASE IF NOT EXISTS ".$database_name;
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error creating database: " . mysqli_error($connection);
-				$this->close(connection);
+				$this->errors = "Error creating database: " . mysqli_error($connection);
+				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$this->errors="";
 			$this->close($connection);
 			return true;
 		}
@@ -79,18 +92,18 @@
 		public function dropDatabase($database_name){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysql_connect_error();
+				$this->errors ="Connection Error".mysql_connect_error();
 				return false;
 			}
 
 			$sql = "DROP DATABASE ".$database_name;
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error deleting record: " . mysqli_error($connection);
+				$this->errors = "Error deleting record: " . mysqli_error($connection);
 				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$this->errors="";
 			$this->close($connection);
 			return true;
 		}
@@ -98,14 +111,14 @@
 		public function getConnection(){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return null;
 			}
 			return $connection;
 		}
 
 		public function getErrors(){
-			return $errors;
+			return $this->errors;
 		}
 	}
 
@@ -134,25 +147,25 @@
 		public function createTable($table_name,$columns){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
 
 			$sql = "SELECT 1 FROM ".$table_name;
 			$exist =  mysqli_query($connection,$sql);
 			if($exist != false){
-				$errors = "Already Exist: " ;
+				$this->errors = "Already Exist: " ;
 				return false;
 			}
 
 			$sql = "CREATE TABLE ".$table_name."(".$columns.")";
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error creating table: " . mysqli_error($connection);
+				$this->errors = "Error creating table: " . mysqli_error($connection);
 				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$this->errors="";
 			$this->close($connection);
 			return true;
 		}
@@ -160,18 +173,18 @@
 		public function dropTable($table_name){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
 
 			$sql = "DROP TABLE ".$table_name;
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error deleting table: " . mysqli_error($connection);
+				$this->errors = "Error deleting table: " . mysqli_error($connection);
 				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$this->errors="";
 			$this->close($connection);
 			return true;
 		}
@@ -179,33 +192,36 @@
 		public function insert($table_name,$datas_associative_array){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
 
 			$fields = implode(", ", array_keys($datas_associative_array));
 			$values = array_values($datas_associative_array);
 			for($i=0;$i<count($values);$i++){
-				$values[$i] = "'$values[$i]'";
+				$value = filter_var($values[$i], FILTER_SANITIZE_STRING);
+				$value = mysqli_real_escape_string($connection, $value);
+				$values[$i] = "'$value'";
 			}
 			$values =  implode(", ", $values);
 
 			$sql = "INSERT INTO ".$table_name."(".$fields.") VALUES (".$values.")";
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error inserting datas: " . mysqli_error($connection);
+				$this->errors = "Error inserting datas: " . mysqli_error($connection);
 				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$last_id = mysqli_insert_id($connection);
+			$this->errors="";
 			$this->close($connection);
-			return true;
+			return $last_id;
 		}
 
 		public function select($table_name,$fields_array=null,$conditions=null, $order=null, $limit=null, $offset=null){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return null;
 			}
 
@@ -216,10 +232,6 @@
 				$sql = "SELECT ".$fields." FROM ".$table_name;
 			}
 
-<<<<<<< HEAD:htdocs/multiverse/server_database.php
-			if($conditions!="true"){
-				$sql=$sql." WHERE ".$conditions;
-=======
 			if($conditions!=null){
 				$sql .= " WHERE ".$conditions;
 			}
@@ -234,7 +246,6 @@
 			
 			if($offset!=null){
 				$sql .=" OFFSET ".$offset;
->>>>>>> eb8469966c6027d05b490a0beb5be81def804ad6:htdocs/lib/server_database.php
 			}
 
 			$result = mysqli_query($connection,$sql);
@@ -255,7 +266,7 @@
 		public function update($table_name,$datas_associative_array,$conditions="true"){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
 			$fields = array_keys($datas_associative_array);
@@ -268,11 +279,11 @@
 			$sql = " UPDATE ".$table_name." SET ".$values." WHERE ".$conditions;
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error updating datas: " . mysqli_error($connection);
+				$this->errors = "Error updating datas: " . mysqli_error($connection);
 				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$this->errors="";
 			$this->close($connection);
 			return true;
 		}
@@ -280,18 +291,18 @@
 		public function delete($table_name,$conditions="true"){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return false;
 			}
 
 			$sql = " DELETE FROM ".$table_name." WHERE ".$conditions;
 
 			if(!mysqli_query($connection,$sql)){
-				$errors = "Error Deleting datas: " . mysqli_error($connection);
+				$this->errors = "Error Deleting datas: " . mysqli_error($connection);
 				$this->close($connection);
 				return false;
 			}
-			$errors="";
+			$this->errors="";
 			$this->close($connection);
 			return true;
 		}
@@ -299,14 +310,110 @@
 		public function getConnection(){
 			$connection = $this->connect();
 			if(!$connection){
-				$errors ="Connection Error".mysqli_connect_error();
+				$this->errors ="Connection Error".mysqli_connect_error();
 				return null;
 			}
 			return $connection;
 		}
 
 		public function getErrors(){
-			return $errors;
+			return $this->errors;
+		}
+	}
+
+	class User{
+		private $host;
+		private $username;
+		private $password;
+		private $errors;
+
+		private function connect(){
+			return mysqli_connect($this->host,$this->username,$this->password);
+		}
+
+		private function close($connection){
+			mysqli_close($connection);
+		}
+
+		public function __construct($host,$username,$password){
+			$this->host = $host;
+			$this->username = $username;
+			$this->password = $password;			
+		}
+
+		public function createUser($host,$username,$password){
+			$connection = $this->connect();
+			if(!$connection){
+				$this->errors ="Connection Error".mysqli_connect_error();
+				return false;
+			}
+
+			$sql = "CREATE USER IF NOT EXISTS '$username'@'$host' IDENTIFIED BY '$password'";
+			if(!mysqli_query($connection,$sql)){
+				$this->errors = "Error creating database: " . mysqli_error($connection);
+				$this->close(connection);
+				return false;
+			}
+			$this->errors="";
+			$this->close($connection);
+			return true;
+		}
+
+		public function grant($permissions,$database_name,$table_name,$host,$username){
+			$connection = $this->connect();
+			if(!$connection){
+				$this->errors ="Connection Error".mysqli_connect_error();
+				return false;
+			}
+			$sql = "GRANT $permissions ON $database_name.$table_name TO '$username'@'$host'";
+			if(!mysqli_query($connection,$sql)){
+				$this->errors = "Error creating database: " . mysqli_error($connection);
+				$this->close($connection);
+				return false;
+			}
+			$this->errors="";
+			$this->close($connection);
+			return true;
+		}
+
+		public function revoke($permissions,$database_name,$table_name,$host,$username){
+			$connection = $this->connect();
+			if(!$connection){
+				$this->errors ="Connection Error".mysqli_connect_error();
+				return false;
+			}
+
+			$sql = "REVOKE $permissions ON $database_name.$table_name FROM '$username'@'$host'";
+			if(!mysqli_query($connection,$sql)){
+				$this->errors = "Error creating database: " . mysqli_error($connection);
+				$this->close($connection);
+				return false;
+			}
+			$this->errors="";
+			$this->close($connection);
+			return true;
+		}
+
+		public function dropUser($host,$username){
+			$connection = $this->connect();
+			if(!$connection){
+				$this->errors ="Connection Error".mysqli_connect_error();
+				return false;
+			}
+
+			$sql = "DROP USER '$username'@'$host'";
+			if(!mysqli_query($connection,$sql)){
+				$this->errors = "Error creating database: " . mysqli_error($connection);
+				$this->close($connection);
+				return false;
+			}
+			$this->errors="";
+			$this->close($connection);
+			return true;
+		}
+
+		public function getErrors(){
+			return $this->errors;
 		}
 	}
 

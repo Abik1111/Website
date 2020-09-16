@@ -1,13 +1,13 @@
-<<<<<<< HEAD
-=======
 (function (global) {
 
     var myNameSpc = {};
-    var threeTabResults="data/tab3.json";
     var searchResults = "data/data1.json";
     var searchResultsTitleHTML = "snippets/title.html";
     var searchResultsBodyHTML = "snippets/searchresult.html";
-  
+
+    //    var individualresult="";
+    //    var individualFinal="";
+    //    
     var insertHtml = function (selector, html) {
         var targetElem = document.querySelector(selector);
         targetElem.innerHTML = html;
@@ -18,66 +18,8 @@
         return string;
     };
 
-    document.addEventListener("DOMContentLoaded",
-    function(event){
-        myNameSpc.loadTabResults(0);
-
-    });
-
-    myNameSpc.loadTabResults=function(tabType){
-        if(tabType===0){
-            console.log("HOT");
-            global.tab=0;
-        }
-        else if(tabType===1){
-            console.log("TOP");
-            global.tab=1;
-        }
-        else{
-            console.log("BEST");
-            global.tab=2;
-        }
-        $ajaxUtils.sendGetRequest(threeTabResults, buildAndShowTabResultsHTML);
-
-    }
-
-    function buildAndShowTabResultsHTML(results) {
-        $ajaxUtils.sendGetRequest(searchResultsBodyHTML,
-            function (searchResultsBodyHTML) {
-                var searchResultsViewHTML = buildTabViewHTML(results, searchResultsBodyHTML);
-                finalHTML="";
-                var tabNames=["Hot Properties","Top Viewed","Best Buys"]
-                for (var i=0;i<3;i++){
-                    if (global.tab===i){
-                        finalHTML+='<li role="presentation" class="active"><a onclick="$myNameSpc.loadTabResults('+i+')">'+tabNames[i]+'</a></li>';
-                    }
-                    else{
-                        finalHTML+='<li role="presentation"><a onclick="$myNameSpc.loadTabResults('+i+')">'+tabNames[i]+'</a></li>';
-                    }
-                }
-                insertHtml("#specific-list", finalHTML);
-                insertHtml("#property", searchResultsViewHTML)
-                
-
-            }, false);
-    }
-
-    function buildTabViewHTML(results, searchResultsBodyHTML) {
-        finalHTML="";
-        var desiredProperties = results.desired_properties;
-        for (var i = 0; i < desiredProperties.length; i++) {
-            var html = searchResultsBodyHTML;
-            html = insertProperty(html, "image", desiredProperties[i].image);
-            html = insertProperty(html, "id", desiredProperties[i].id);
-            html = insertProperty(html, "Area", desiredProperties[i].Area);
-            html = insertProperty(html, "Location", desiredProperties[i].Location);
-            html = insertProperty(html, "Price", desiredProperties[i].Price);
-            finalHTML += html;
-        }
-        finalHTML += "</div>"
-        return finalHTML;
-    } 
-
+    //    document.addEventListener("DOMContentLoaded",
+    //    function(event));
     myNameSpc.loadSearchData = function (naya) {
         if(naya===true){
             global.currentPage=1;
@@ -120,7 +62,7 @@
             html = insertProperty(html, "Price", desiredProperties[i].Price);
             finalHTML += html;
         }
-        finalHTML += "</div>";       
+        finalHTML += "</div>"    
         pagination=insertPagination(numOfPages);
         finalHTML+=pagination;
         return finalHTML
@@ -168,4 +110,3 @@
     }
     global.$myNameSpc = myNameSpc;
 })(window);
->>>>>>> eb8469966c6027d05b490a0beb5be81def804ad6
