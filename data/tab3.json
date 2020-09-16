@@ -4,7 +4,7 @@
             "id": "JAGGA1",
             "Area": "55555m sq",
             "Location": "Kumaripati, Lalitpur",
-            "Price": "Rs 10000000",
+            "Price": "10 Lakh",
             "image":"retirement"
         },
         {
@@ -43,6 +43,6 @@
             "image":"retirement"
         }
     ],
-    "tab":"HOT"
+    "num_of_pages":11
     
 }

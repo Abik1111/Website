@@ -1,10 +1,7 @@
-
 body
 {
     width: 100%;
     height: 100vh;
-    /* position: relative; */
-    /* overflow: hidden; */
     background: white;
     
 }
@@ -12,7 +9,6 @@ body
     background-color:purple;
     border-radius: 0px;
     border:0;
-    /* position:fixed; */
     height:110px;
     width:100%;
     margin-bottom:0;
@@ -33,7 +29,6 @@ body
 #header-nav a:hover ,#header-nav a:focus{
     text-decoration: none;
     
-    
 }
 
 .navbar-brand h1{
@@ -53,32 +48,27 @@ body
     
 }
 #nav-listed{
-    height:39px;
-    /* padding-top:3px;  */
-    /* padding-bottom: 3px; */
-    /* padding:2px; */
+    height:55px;
+    padding-top:3px;
+    padding-bottom: 3px;
 }
 
 #nav-listed a{
     box-sizing: border-box;
     color:#fff;
     text-align: center;
-    padding:10px;
-    width:120px;
-    border-radius:8px 8px 0 0;
-    /* font-size:1.3em; */
 }
 
-#nav-listed a:hover,a:focus{
+#nav-listed a:hover{
     color:dodgerblue;
     background:white;
 }
 
-/* #nav-listed a:focus{
+#nav-listed a:focus{
     color:dodgerblue;
     background:white;
-    /* width:90px; 
-} */
+    width:90px;
+}
 
 #nav-listed .active a{
     color:black;
@@ -93,11 +83,8 @@ body
 #nav-listed li:first-child{
     float:right;
     position: absolute; 
-    top:8%;
-    left:60%;
-    
-    /* clear:both;
-    float:right; */
+    top:5%;
+    left:55%;
 }
 #search-input{
     width:350px;
@@ -113,14 +100,13 @@ body
     display:inline-block;
 }
 button.dropbtn{
-    padding:6.4px;
+    padding:6px;
     vertical-align: middle;
     background-color:white;
     border-width:1px 1px;
     border-color: #ddd;
     width:70px;
     outline:none;
-    vertical-align: middle;
 }
 
   .dropdown-content {
@@ -155,67 +141,58 @@ button.dropbtn{
  /*property contents*/
 #heading-1{
     margin-bottom:20px;
-    color:rgb(29, 28, 27);
-    font-weight:600;
+    color:rgb(240, 228, 221);
 }
 
  #property {
     margin-bottom:50px;
+    padding:1px;
 }
 
 .photo img{
     width:100%;
-    height:150px;
-
+    height:250px;
+    border:2px solid blue;
+    border-radius:5px;
+    box-shadow: 0 0 50px #eee9e6;
+    margin:10px auto;
 }
 .photo{
-    /* position:relative; */
-    border:1.5px solid rgb(172, 162, 162);
-    border-radius:8px;
-    margin:10px -5px;
-    padding:3px;
+    position:relative;
 }
 .photo img{
-    margin-bottom:3px;
-    padding:1px;
-    border-radius:5px;
+    margin-bottom:0;
 }
-.photo hr{
-    margin:2px 1%; 
-    width:98%;
-    text-align:middle;
-    border-width:1px;
-    border-color:rgb(156, 150, 150);
-}
-.photo .details{
-    /* background:gray; */
-    padding:5px;
-    border-radius:5px;
-    /* border:2px solid grey; */
-}
-#property a:hover{
-    text-decoration: none;
-}
- .photo span{
+.photo span{
+  position: absolute;
+  bottom: 0;
+  right: 0;
   width: 100%;
   text-align: center;
-  font-size: 1em;
-  /* text-transform: uppercase; */
-  color: rgb(55, 62, 75);
+  font-size: 1.6em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #fff;
   border-radius: 5px;
-  text-align: center;
+  opacity: 0;
+  visibility: hidden;
   vertical-align: middle;
-} 
+  /* -webkit-transition: visibility 0s, opacity 0.5s linear; 
+  transition: visibility 0s, opacity 0.5s linear; */
+}
 
 .photo:hover .photo:active{
     cursor: pointer;   
 }
 
-.details span:first-child{
-    font-weight:bold;
-    font-size: 1.2em;
+.photo:hover span:nth-child(5){
+    -webkit-transition: visibility 1s, opacity 1s ease-in-out; 
+    transition: visibility 1s, opacity 1s ease-in-out;
+    visibility: visible;
+    opacity: 0.7; 
 }
-/* .photo:hover span:nth-child(-n+4){
+ 
+.photo:hover span:nth-child(-n+4){
     font-size: 1em;
     height:10%;
     text-align:left;
@@ -224,9 +201,9 @@ button.dropbtn{
     opacity: 0.7;
     left:-5px;
     vertical-align: middle;
-} */
+}
 
-/* .photo:hover span:nth-child(2){
+.photo:hover span:nth-child(2){
     -webkit-transition: visibility 0.5s, opacity 0.5s linear,width 0.5s linear; 
     transition: visibility 0.5s, opacity 0.5s linear;
     top:20px;    
@@ -240,7 +217,7 @@ button.dropbtn{
     -webkit-transition: visibility 1s, opacity 1s linear; 
     transition: visibility 1s, opacity 1s linear;
     top:80px;    
-}  */
+} 
 
 .search-results span{
     font-size: 2em;
