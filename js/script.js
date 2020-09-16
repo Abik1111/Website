@@ -1,9 +1,9 @@
 (function (global) {
 
     var myNameSpc = {};
-    var threeTabResults="data/tab3.json";
+    var threeTabResults="data/tab3.json";//homepage results
 
-    var searchResults = "data/data1.json";
+    var searchResults = "data/data1.json";// results from search
     var searchResultsTitleHTML = "snippets/title.html";
     var searchResultsBodyHTML = "snippets/searchresult.html";
 
@@ -26,19 +26,7 @@
 
     });
 
-    myNameSpc.loadTabResults=function(tabType){
-        if(tabType===0){
-            console.log("HOT");
-            global.tab=0;
-        }
-        else if(tabType===1){
-            console.log("TOP");
-            global.tab=1;
-        }
-        else{
-            console.log("BEST");
-            global.tab=2;
-        }
+    myNameSpc.loadTabResults=function(){
         $ajaxUtils.sendGetRequest(threeTabResults, buildAndShowTabResultsHTML);
 
     }
@@ -47,20 +35,9 @@
         $ajaxUtils.sendGetRequest(searchResultsBodyHTML,
             function (searchResultsBodyHTML) {
                 var searchResultsViewHTML = buildTabViewHTML(results, searchResultsBodyHTML);
-                finalHTML="";
-                var tabNames=["Hot Properties","Top Viewed","Best Buys"]
-                for (var i=0;i<3;i++){
-                    if (global.tab===i){
-                        finalHTML+='<li role="presentation" class="active"><a onclick="$myNameSpc.loadTabResults('+i+')">'+tabNames[i]+'</a></li>';
-                    }
-                    else{
-                        finalHTML+='<li role="presentation"><a onclick="$myNameSpc.loadTabResults('+i+')">'+tabNames[i]+'</a></li>';
-                    }
-                }
+                finalHTML="<h1>Latest Properties</h1>";
                 insertHtml("#specific-list", finalHTML);
-                insertHtml("#property", searchResultsViewHTML)
-                
-
+                insertHtml("#property", searchResultsViewHTML);
             }, false);
     }
 
@@ -191,12 +168,16 @@
             
         }
         else{
-            pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})">&laquo;</a>';
+            pageString='<a href="#" onclick="$myNameSpc.loadSearchData({{i}})">&raquo;</a>';
             pageString=insertProperty(pageString, "i", numOfPages);
         }
         finalHTML+=pageString;
         finalHTML += "</div></div>";
         return finalHTML;
+    }
+    myNameSpc.changeDropdown=function(typeOfLand){
+        text=typeOfLand+'<span class="caret"></span>';
+        insertHtml('#dropdown-btn',text);
     }
     global.$myNameSpc = myNameSpc;
 })(window);

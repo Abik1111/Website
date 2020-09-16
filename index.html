@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -42,11 +42,65 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-
-                    <div class="collapse navbar-collapse" id="collapsed-navbar">
-                        <ul id="nav-list" class="nav navbar-nav navbar-right">
+                </div>
+            </nav>
+            <nav>
+                <div class="collapse navbar-collapse" id="collapsed-navbar">
+                    <div class="container">
+                        <ul id="nav-listed" class="nav navbar-nav navbar-left">
+                            <li>
+                                <form
+                                    class="navbar-form navbar-left"
+                                    role="search"
+                                >
+                                    <div class="form-group">
+                                        <input
+                                            id="search-input"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Search"
+                                        />
+                                        <div class="dropdown">
+                                            <button
+                                                id="dropdown-btn"
+                                                type="button"
+                                                class="dropbtn"
+                                            >
+                                                Type
+                                                <span class="caret"></span>
+                                            </button>
+                                            <div
+                                                id="dropdown-options"
+                                                class="dropdown-content"
+                                            >
+                                                <a
+                                                    onclick="$myNameSpc.changeDropdown('All')"
+                                                    >All</a
+                                                >
+                                                <a
+                                                    onclick="$myNameSpc.changeDropdown('Land')"
+                                                    >Land</a
+                                                >
+                                                <a
+                                                    onclick="$myNameSpc.changeDropdown('House')"
+                                                    >House</a
+                                                >
+                                            </div>
+                                        </div>
+                                        <button
+                                            id="search-button"
+                                            type="submit"
+                                            class="btn btn-default"
+                                        >
+                                            <span
+                                                class="glyphicon glyphicon-search"
+                                            ></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </li>
                             <li class="active">
-                                <a href="index.html"
+                                <a href="#"
                                     ><span
                                         class="glyphicon glyphicon-home"
                                     ></span>
@@ -56,41 +110,19 @@
                                 >
                             </li>
                             <li>
-                                <a href="sell.html"
-                                    ><span
-                                        class="glyphicon glyphicon-chevron-up"
-                                    ></span>
-                                    Sell</a
+                                <a href="calc.html"
+                                    ><span class="fas fa-calculator"></span>
+                                    Calculator</a
                                 >
                             </li>
                             <li>
-                                <a href="Login.html"
+                                <a href="#"
                                     ><span
                                         class="glyphicon glyphicon-user"
                                     ></span>
                                     Login</a
                                 >
                             </li>
-                            <li>
-                                <a href="calc.html"
-                                    ><span
-                                        class="fas fa-calculator"
-                                        style="
-                                            font-size: 1.5em;
-                                            padding-top: 5px;
-                                        "
-                                    ></span></a
-                                >
-                            </li>
-                            <li>
-                                <a href="supsearch.html"
-                                    ><span
-                                        class="glyphicon glyphicon-search"
-                                        style="font-size: 1.5em;padding-top:5px;"
-                                    ></span></a
-                                >
-                            </li>
-                            
                         </ul>
                     </div>
                 </div>
@@ -112,7 +144,7 @@
       </div> -->
             <div id="sub-head">
                 <ul id="specific-list" class="nav nav-pills" role="tablist">
-
+                    
                 </ul>
             </div>
             <div id="property" class="row">

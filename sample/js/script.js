@@ -138,5 +138,9 @@
         finalHTML += "</div></div>";
         return finalHTML;
     }
+    myNameSpc.changeDropdown=function(typeOfLand){
+        text=typeOfLand+'<span class="caret"></span>';
+        insertHtml('#dropdown-btn',text);
+    }
     global.$myNameSpc = myNameSpc;
 })(window);
