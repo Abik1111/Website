@@ -1,0 +1,39 @@
+{
+    "Names": [{
+        "id": 35,
+        "address": "Lalitpur",
+        "area": 200,
+        "price": 5000000000,
+        "src": "Images/35/73210014_115846133172861_1725764421273255936_n.jpg"
+}, {
+        "id": 34,
+        "address": "Pulchowk",
+        "area": 12,
+        "price": 5000000000,
+        "src": "Images/34/99279c9d-deeb-4676-836a-95c0871b28b2_1.png"
+}, {
+        "id": 33,
+        "address": "Pulchowk",
+        "area": 12,
+        "price": 5000000000,
+        "src": "Images/33/debby-hudson-asviIGR3CPE-unsplash.jpg"
+}, {
+        "id": 30,
+        "address": "Lalitpur",
+        "area": 1555,
+        "price": 5000000000,
+        "src": "Images/30/WWDC-2019-Wallpaper-AR72014-desktop-v1-1024x640.png"
+}, {
+        "id": 29,
+        "address": "Patan",
+        "area": 1555,
+        "price": 5000000000,
+        "src": "Images/29/bear-2382779_960_720 (1).webp"
+}, {
+        "id": 28,
+        "address": "Lalitpur",
+        "area": 12,
+        "price": 5000000000,
+        "src": "Images/28/Betterment_EducationSites.jpg"
+}]
+}
