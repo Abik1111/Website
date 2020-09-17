@@ -21,7 +21,7 @@
             myNameSpc.loadTabResults(true);
 
         });
-
+        
     myNameSpc.loadTabResults = function (naya) {
         if (naya === true) {
             global.currentPage = 1;

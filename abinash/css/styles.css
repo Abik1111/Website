@@ -272,7 +272,57 @@ button.dropbtn{
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
+#area-converter{
+    border:2px solid gray;
+    padding:20px 10px;
+    border-radius:10px;
+    width:90%;
+    background-color:rgb(162, 212, 212);
+}
+#area-converter span{
+    font-weight:bold;
+    font-size:1.2em;
+}
+#area-converter>select>option{
+    font-weight:bold;
+}
+#area-converter>select{
+    font-weight:bold;
+}
+.selectz{
+    margin:10px auto;
+    height:35px;
+    width:100%;
+    border-radius:5px;
+    outline:none;
+}
 
+
+#outputMeters{
+    margin-bottom:10px;
+    height:35px;
+    border:1px solid black;
+    padding-top:7px;
+    padding-left:5px;
+    background:white;
+    color:gray;
+    /* width:100% */
+    border-radius:5px;
+    outline:none;
+}
+
+#inputLength{
+    margin-bottom:10px;
+    height:35px;
+    border:1px solid black;
+    padding-top:5px;
+    width:100%;
+    border-radius:5px;
+    outline:none;
+}
+#page-calc{
+    margin:20px auto 20px auto;;
+}
 
 /*for footer*/
 .panel-footer{

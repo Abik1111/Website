@@ -7,7 +7,7 @@
         <title>THE PROPERTY SITE</title>
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <!--   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
-        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="styles.css" />
 
         <!-- Latest compiled and minified CSS -->
         <link
@@ -22,193 +22,263 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
         <script>
-            function LengthConverter() {
-                var select1 = document.getElementById("Selectbox1");
-                var select11 = select1.options[select1.selectedIndex].value;
-                console.log(select11);
-                var select2 = document.getElementById("Selectbox2");
-                var select22 = select2.options[select2.selectedIndex].value;
-                console.log(select22);
-                var area = document.getElementById("inputLength").value;
-                console.log(length);
-                if (select11 == "Ana" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 16;
-                } else if (select11 == "Ropani" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 16;
-                } else if (select11 == "Ana" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 10.6501;
-                } else if (select11 == "Katha" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 10.6501;
-                } else if (select11 == "Ana" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 1.87791;
-                } else if (select11 == "Dhur" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 1.87791;
-                } else if (select11 == "Ana" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 16.00046;
-                } else if (select11 == "Dam" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 16.00046;
-                } else if (select11 == "Ana" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 4.0012;
-                } else if (select11 == "Paisa" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 4.0012;
-                } else if (select11 == "Ana" && select22 == "Square Foot") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 342.25;
-                } else if (select11 == "Square Foot" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 342.25;
-                } else if (select11 == "Ana" && select22 == "Square Meter") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 31.7961;
-                } else if (select11 == "Square Meter" && select22 == "Ana") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 31.7961;
-                } else if (
-                    select11 == "Square Foot" &&
-                    select22 == "Square Meter"
-                ) {
-                    document.getElementById("outputMeters").textContent =
-                        area * 0.092903;
-                } else if (
-                    select11 == "Square Meter" &&
-                    select22 == "Square Foot"
-                ) {
-                    document.getElementById("outputMeters").textContent =
-                        area / 0.092903;
-                } else if (select11 == "Square Foot" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 5476;
-                } else if (select11 == "Ropani" && select22 == "Square Foot") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 5476;
-                } else if (select11 == "Square Foot" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 342.25;
-                } else if (select11 == "Katha" && select22 == "Square Foot") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 342.25;
-                } else if (select11 == "Square Foot" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 182.25;
-                } else if (select11 == "Dhur" && select22 == "Square Foot") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 182.25;
-                } else if (select11 == "Square Foot" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 21.39;
-                } else if (select11 == "Dam" && select22 == "Square Foot") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 21.39;
-                } else if (select11 == "Square Foot" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 85.56;
-                } else if (select11 == "Paisa" && select22 == "Square Foot") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 85.56;
-                } else if (select11 == "Square Meter" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 508.73754;
-                } else if (select11 == "Ropani" && select22 == "Square Meter") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 508.73754;
-                } else if (select11 == "Square Meter" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 338.63191;
-                } else if (select11 == "Katha" && select22 == "Square Meter") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 338.63191;
-                } else if (select11 == "Square Meter" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 16.9316;
-                } else if (select11 == "Dhur" && select22 == "Square Meter") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 16.9316;
-                } else if (select11 == "Square Meter" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 1.9872;
-                } else if (select11 == "Dam" && select22 == "Square Meter") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 1.9872;
-                } else if (select11 == "Square Meter" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 7.948;
-                } else if (select11 == "Paisa" && select22 == "Square Meter") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 7.948;
-                } else if (select11 == "Ropani" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 1.502332;
-                } else if (select11 == "Katha" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 1.502332;
-                } else if (select11 == "Ropani" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 30.04664;
-                } else if (select11 == "Dhur" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 30.04664;
-                } else if (select11 == "Ropani" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 256.0075;
-                } else if (select11 == "Dam" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 256.0075;
-                } else if (select11 == "Ropani" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 64.00187;
-                } else if (select11 == "Paisa" && select22 == "Ropani") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 64.00187;
-                } else if (select11 == "Katha" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 20;
-                } else if (select11 == "Dhur" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 20;
-                } else if (select11 == "Katha" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 170.4067;
-                } else if (select11 == "Dam" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 170.4067;
-                } else if (select11 == "Katha" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 42.6017;
-                } else if (select11 == "Paisa" && select22 == "Katha") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 42.6017;
-                } else if (select11 == "Dhur" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 8.5203;
-                } else if (select11 == "Dam" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 8.5203;
-                } else if (select11 == "Dhur" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 2.13008;
-                } else if (select11 == "Paisa" && select22 == "Dhur") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 2.13008;
-                } else if (select11 == "Dam" && select22 == "Paisa") {
-                    document.getElementById("outputMeters").textContent =
-                        area * 0.25;
-                } else if (select11 == "Paisa" && select22 == "Dam") {
-                    document.getElementById("outputMeters").textContent =
-                        area / 0.25;
-                } else {
-                    document.getElementById("outputMeters").textContent = area;
+                function LengthConverter() {
+                    var select1 = document.getElementById("Selectbox1");
+                    var select11 = select1.options[select1.selectedIndex].value;
+                    console.log(select11);
+                    var select2 = document.getElementById("Selectbox2");
+                    var select22 = select2.options[select2.selectedIndex].value;
+                    console.log(select22);
+                    var area = document.getElementById("inputLength").value;
+                    console.log(area);
+                    if (select11 == "Ana" && select22 == "Ropani") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 16;
+                    } else if (select11 == "Ropani" && select22 == "Ana") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 16;
+                    } else if (select11 == "Ana" && select22 == "Katha") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 10.6501;
+                    } else if (select11 == "Katha" && select22 == "Ana") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 10.6501;
+                    } else if (select11 == "Ana" && select22 == "Dhur") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 1.87791;
+                    } else if (select11 == "Dhur" && select22 == "Ana") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 1.87791;
+                    } else if (select11 == "Ana" && select22 == "Dam") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 16.00046;
+                    } else if (select11 == "Dam" && select22 == "Ana") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 16.00046;
+                    } else if (select11 == "Ana" && select22 == "Paisa") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 4.0012;
+                    } else if (select11 == "Paisa" && select22 == "Ana") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 4.0012;
+                    } else if (select11 == "Ana" && select22 == "Square Foot") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 342.25;
+                    } else if (select11 == "Square Foot" && select22 == "Ana") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 342.25;
+                    } else if (
+                        select11 == "Ana" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 31.7961;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Ana"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 31.7961;
+                    } else if (
+                        select11 == "Square Foot" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 0.092903;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Square Foot"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 0.092903;
+                    } else if (
+                        select11 == "Square Foot" &&
+                        select22 == "Ropani"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 5476;
+                    } else if (
+                        select11 == "Ropani" &&
+                        select22 == "Square Foot"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 5476;
+                    } else if (
+                        select11 == "Square Foot" &&
+                        select22 == "Katha"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 342.25;
+                    } else if (
+                        select11 == "Katha" &&
+                        select22 == "Square Foot"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 342.25;
+                    } else if (
+                        select11 == "Square Foot" &&
+                        select22 == "Dhur"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 182.25;
+                    } else if (
+                        select11 == "Dhur" &&
+                        select22 == "Square Foot"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 182.25;
+                    } else if (select11 == "Square Foot" && select22 == "Dam") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 21.39;
+                    } else if (select11 == "Dam" && select22 == "Square Foot") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 21.39;
+                    } else if (
+                        select11 == "Square Foot" &&
+                        select22 == "Paisa"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 85.56;
+                    } else if (
+                        select11 == "Paisa" &&
+                        select22 == "Square Foot"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 85.56;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Ropani"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 508.73754;
+                    } else if (
+                        select11 == "Ropani" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 508.73754;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Katha"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 338.63191;
+                    } else if (
+                        select11 == "Katha" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 338.63191;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Dhur"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 16.9316;
+                    } else if (
+                        select11 == "Dhur" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 16.9316;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Dam"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 1.9872;
+                    } else if (
+                        select11 == "Dam" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 1.9872;
+                    } else if (
+                        select11 == "Square Meter" &&
+                        select22 == "Paisa"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area / 7.948;
+                    } else if (
+                        select11 == "Paisa" &&
+                        select22 == "Square Meter"
+                    ) {
+                        document.getElementById("outputMeters").textContent =
+                            area * 7.948;
+                    } else if (select11 == "Ropani" && select22 == "Katha") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 1.502332;
+                    } else if (select11 == "Katha" && select22 == "Ropani") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 1.502332;
+                    } else if (select11 == "Ropani" && select22 == "Dhur") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 30.04664;
+                    } else if (select11 == "Dhur" && select22 == "Ropani") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 30.04664;
+                    } else if (select11 == "Ropani" && select22 == "Dam") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 256.0075;
+                    } else if (select11 == "Dam" && select22 == "Ropani") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 256.0075;
+                    } else if (select11 == "Ropani" && select22 == "Paisa") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 64.00187;
+                    } else if (select11 == "Paisa" && select22 == "Ropani") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 64.00187;
+                    } else if (select11 == "Katha" && select22 == "Dhur") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 20;
+                    } else if (select11 == "Dhur" && select22 == "Katha") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 20;
+                    } else if (select11 == "Katha" && select22 == "Dam") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 170.4067;
+                    } else if (select11 == "Dam" && select22 == "Katha") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 170.4067;
+                    } else if (select11 == "Katha" && select22 == "Paisa") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 42.6017;
+                    } else if (select11 == "Paisa" && select22 == "Katha") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 42.6017;
+                    } else if (select11 == "Dhur" && select22 == "Dam") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 8.5203;
+                    } else if (select11 == "Dam" && select22 == "Dhur") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 8.5203;
+                    } else if (select11 == "Dhur" && select22 == "Paisa") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 2.13008;
+                    } else if (select11 == "Paisa" && select22 == "Dhur") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 2.13008;
+                    } else if (select11 == "Dam" && select22 == "Paisa") {
+                        document.getElementById("outputMeters").textContent =
+                            area * 0.25;
+                    } else if (select11 == "Paisa" && select22 == "Dam") {
+                        document.getElementById("outputMeters").textContent =
+                            area / 0.25;
+                    } else {
+                        document.getElementById(
+                            "outputMeters"
+                        ).textContent = area;
+                    }
                 }
-            }
+            document.addEventListener("DOMContentLoaded", function (event) {
+                document
+                    .querySelector("#inputLength")
+                    .addEventListener("keyup", function (event) {
+                        console.log(this);
+                        LengthConverter();
+                    });
+            });
         </script>
     </head>
 
@@ -289,52 +359,37 @@
             </nav>
         </header>
 
-        <div class="main">
-            <div class="col-md-3">
-                <select id="Selectbox1" class="selectz">
-                    <option value="Ana">Ana</option>
-                    <option value="Square Foot">Square Foot</option>
-                    <option value="Square Meter">Square Meter</option>
-                    <option value="Ropani">Ropani</option>
-                    <option value="Katha">Katha</option>
-                    <option value="Dhur">Dhur</option>
-                    <option value="Dam">Dam</option>
-                    <option value="Paisa">Paisa</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <input
-                    id="inputLength"
-                    placeholder=" Input Area"
-                    class="write"
-                />
-            </div>
+        <div id="main-content" class="container">
+            <div id="page-calc" class="col-lg-4">
+                <div id="area-converter" class="row">
+                    <span>From:</span><br />
+                    <select id="Selectbox1" class="selectz">
+                        <option value="Ana"><span>Ana</span></option>
+                        <option value="Square Foot">Square Foot</option>
+                        <option value="Square Meter">Square Meter</option>
+                        <option value="Ropani">Ropani</option>
+                        <option value="Katha">Katha</option>
+                        <option value="Dhur">Dhur</option>
+                        <option value="Dam">Dam</option>
+                        <option value="Paisa">Paisa</option>
+                    </select>
+                    <input id="inputLength" placeholder="Enter Value"/>
+                    <br />
+                    <span>To:</span><br />
+                    <select id="Selectbox2" class="selectz">
+                        <option value="Ana">Ana</option>
+                        <option value="Square Foot">Square Foot</option>
+                        <option value="Square Meter">Square Meter</option>
+                        <option value="Ropani">Ropani</option>
+                        <option value="Katha">Katha</option>
+                        <option value="Dhur">Dhur</option>
+                        <option value="Dam">Dam</option>
+                        <option value="Paisa">Paisa</option>
+                    </select>
 
-            <div class="col-md-3">
-                <select id="Selectbox2" class="selectz">
-                    <option value="Ana">Ana</option>
-                    <option value="Square Foot">Square Foot</option>
-                    <option value="Square Meter">Square Meter</option>
-                    <option value="Ropani">Ropani</option>
-                    <option value="Katha">Katha</option>
-                    <option value="Dhur">Dhur</option>
-                    <option value="Dam">Dam</option>
-                    <option value="Paisa">Paisa</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <div class="outputz">
-                    <span id="outputMeters">Output Area</span>
+                    <div id="outputMeters">Output Area</div>
                 </div>
             </div>
-
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <button onclick="LengthConverter()" class="buttonz">
-                    Convert
-                </button>
-            </div>
-            <div class="col-md-4"></div>
         </div>
         <footer></footer>
 
