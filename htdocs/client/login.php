@@ -2,6 +2,7 @@
 	//error_reporting(E_ERROR | E_PARSE);
 	include 'lib/server_database.php';
 	
+	
 	session_start();
 	$_SESSION['is_connected']=false;
 	$_SESSION['is_pending']=true;
@@ -44,53 +45,82 @@
 			}
 		}
 	}
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Ghar Jagga</title>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="login.css">
-    <style type="text/css">
-    	.bd-placeholder-img {
-	        font-size: 1.125rem;
-	        text-anchor: middle;
-	        -webkit-user-select: none;
-	        -moz-user-select: none;
-	        -ms-user-select: none;
-	        user-select: none;
-      	}
-
-	     @media (min-width: 768px) {
-	        .bd-placeholder-img-lg {
-	          font-size: 3.5rem;
-	        }
-	    }
-	    .error-text{
-	    	color:red;
-	    }
-    </style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<style type="text/css">
+		.header{
+			background: #FFFFFF;
+			height: 50px;
+			text-align: center;
+		}
+		.header-text{
+			font-weight: bold;
+			font-size: 35px;
+			color: rgb(39,169,157);
+		}
+		.nav{
+			background-color: #FFFFFF;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.button{
+			/*background: #cbb09c !important;*/
+			border-radius : 6px;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.label{
+			color: #9F9F9F;
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.submit-button{
+			/*background: #cbb09c !important;*/
+			border-radius : 6px;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.card{
+			border-top-right-radius: 21px;
+			border-bottom-left-radius: 21px;
+		}
+		.error{
+			color: red;
+		}
+	</style>
 </head>
-  <body class="text-center" >
-    <form class="form-signin" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-		<img class="mb-4" src="logo.jpg" alt="" width="72" height="72">
-  		<h1 class="h3 mb-3 font-weight-normal">Sign in to continue</h1>
-  		<input type="username" class="form-control" name="username" value="<?php echo $username ?>" placeholder="Username" required autofocus>
-  		<div class="error-text"><?php echo $errors['username']; ?></div>
-  		<input type="password" class="form-control" name="password" value="<?php echo $password ?>" placeholder="Password" required>
-  		<div class="error-text"><?php echo $errors['password']; ?></div>
-  		<label>
-  			Don't have account sign up 
-			<a href="signup.php">here</a>
-		</label>
-
-  		<button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Sign in</button>
-  		<p class="mt-5 mb-3 text-muted">&copy; Copyright 2020</p>
-	</form>
+<body class="container" style="max-width: 300px">
+	<br/><br/><br/><br/><br/>
+	<header class="header header-text">
+		REQUEST DATA
+	</header>
+	<div class="card">
+		<div class="card-content white-text">
+			<span class="card-title header-text">Login to request data...</span>
+			<form class="white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+			<div>
+				<label class="label">Username:</label>
+				<input style="border-radius: 9px;padding-left: 9px;" type="text" name="username" value="<?php echo $username ?>" required autofocus >
+				<div class="error"><?php echo $errors['username']; ?></div>
+			</div>
+			<div>
+				<label class="label">Password:</label>
+				<input style="border-radius: 9px;padding-left: 9px" type="password" name="password" value="<?php echo $password ?>" required>
+				<div class="error"><?php echo $errors['password']; ?></div>
+			</div>
+			<label style="font-size: 16px;font-style: italic;">
+		  		Don't have an account sign up 
+				<a href="signup.php">here</a>
+			</label>
+			<br/><br/>
+			<div class = "center">
+				<input class ="btn submit-button" type="submit" name="login" value = "login" class="btn brand z-depth-0">
+			</div>
+			<p>&copy; Copyright 2020</p>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

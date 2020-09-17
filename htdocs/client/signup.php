@@ -58,33 +58,91 @@
 <html>
 <head>
 	<title>Ghar Jagga</title>
+	<title>Ghar Jagga</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<style type="text/css">
+		.header{
+			background: #FFFFFF;
+			height: 50px;
+			text-align: center;
+		}
+		.header-text{
+			font-weight: bold;
+			font-size: 35px;
+			color: rgb(39,169,157);
+		}
+		.nav{
+			background-color: #FFFFFF;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.button{
+			/*background: #cbb09c !important;*/
+			border-radius : 6px;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.label{
+			color: #9F9F9F;
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.submit-button{
+			/*background: #cbb09c !important;*/
+			border-radius : 6px;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.card{
+			border-top-right-radius: 21px;
+			border-bottom-left-radius: 21px;
+		}
+		.error{
+			color: red;
+		}
+	</style>
 </head>
-<body>
-	<section>
-		<h4">SIGN UP</h4>
-		<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-			<label>Username:</label>
-				<input type="text" name="username" value="<?php echo $username ?>">
-				<div><?php echo $errors['username']; ?></div>
-			<label>Password:</label>
-				<input type="password" name="password" value="<?php echo $password ?>">
-				<div><?php echo $errors['password']; ?></div>
-			<label>Retype Password:</label>
-				<input type="password" name="retype_password" value="<?php echo $retype_password ?>">
-				<div><?php echo $errors['retype_password']; ?></div>
-			<label>Contact:</label>
-				<input type="number" name="contact" value="<?php echo $contact ?>">
-				<div><?php echo $errors['contact']; ?></div>
-			<label>Details:</label>
-				<input type="text" name="details" value="<?php echo $details ?>">
+<body class="container" style="max-width: 350px">
+	<br/>
+	<header class="header header-text">
+		REQUEST DATA
+	</header>
+	<div class="card">
+		<div class="card-content white-text">
+			<span class="card-title header-text">Sign up to request data...</span>
+			<form class="white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 			<div>
-				<label>Already have account Sign in </label>
+				<label class="label">Username:</label>
+				<input style="border-radius: 9px;padding-left: 9px;" type="text" name="username" value="<?php echo $username ?>" required autofocus >
+				<div class="error"><?php echo $errors['username']; ?></div>
+			</div>
+			<div>
+				<label class="label">Password:</label>
+				<input style="border-radius: 9px;padding-left: 9px" type="password" name="password" value="<?php echo $password ?>" required>
+				<div class="error"><?php echo $errors['password']; ?></div>
+			</div>
+			<div>
+				<label class="label">Retype Password:</label>
+				<input style="border-radius: 9px;padding-left: 9px" type="password" name="retype_password" value="<?php echo $retype_password ?>" required>
+				<div class="error"><?php echo $errors['retype_password']; ?></div>
+			</div>
+			<div>
+				<label class="label">Contact:</label>
+				<input style="border-radius: 9px;padding-left: 9px;" type="text" name="contact" value="<?php echo $contact ?>" required autofocus >
+				<div class="error"><?php echo $errors['contact']; ?></div>
+			</div>
+			<div>
+				<label class="label">Details:</label>
+				<input style="border-radius: 9px;padding-left: 9px;" type="text" name="details" value="<?php echo $details ?>" required autofocus >
+			</div>
+			<label style="font-size: 16px;font-style: italic;">
+		  		Already have an account Sign in
 				<a href="login.php">here</a>
+			</label>
+			<br/><br/>
+			<div class = "center">
+				<input class ="btn submit-button" type="submit" name="signup" value = "Sign Up">
 			</div>
-			<div>
-				<input type="submit" name="signup" value = "Sign Up">
-			</div>
-		</form>
-	</section>
+			</form>
+		</div>
+	</div>
+	<br/><br/><br/><br/><br/><br/><br/><br/>
 </body>
 </html>

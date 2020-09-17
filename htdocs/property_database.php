@@ -17,7 +17,7 @@
 			PropertyDatabase::$database->createTable("property_table","
 				id BIGINT NOT NULL AUTO_INCREMENT,
 				address CHAR(255) NOT NULL,
-				area FLOAT NOT NULL,
+				area CHAR(255) NOT NULL,
 				price FLOAT NOT NULL,
 				description TEXT NOT NULL,
 				date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -29,7 +29,7 @@
 			PropertyDatabase::$database->createTable("property_table_request","
 				id BIGINT NOT NULL AUTO_INCREMENT,
 				address CHAR(255) NOT NULL,
-				area FLOAT NOT NULL,
+				area CHAR(255) NOT NULL,
 				price FLOAT NOT NULL,
 				description TEXT NOT NULL,
 				date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -71,7 +71,7 @@
 	}
 
 	/////////////////
-	PropertyDatabase::create('localhost','dilip','123456789');
+	PropertyDatabase::create('localhost','peter','password');
 
 
  ?>

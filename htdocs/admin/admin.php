@@ -289,6 +289,7 @@
 			<a href="?link=home" class = "brand-text">ADMIN LOGIN</a>
 		</header>
 		<?php if($_SESSION['connected']==true): ?>
+			
 			<nav class = "white z-depth-0">
 				<div class = "container">
 					<ul id = "nav-mobile" class = "<?php echo($_SESSION['home']==true?'right':'left')?> hide-on-down" >
