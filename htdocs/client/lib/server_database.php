@@ -18,9 +18,11 @@
 			boolean dropTable(String table_name);
 			boolean insert(String table_name,Associative_array_1D datas);
 				e.g:- datas = {'name'='Sparrow','job'='pirates'};
-			Associative_array_2D select(String table_name,Array_1D fields=null,String conditions="true");conditions include sql command
+			Associative_array_2D select(String table_name,Array_1D fields=null,String conditions="true",String limit=null,String offset=null);conditions include sql command
 				e.g:- fields = {'name','job'};
 				e.g:- conditions = "id = '0' AND job = 'pirates'";
+				e.g:- limit = 1 or "1"
+				e.g:- offset = 2 or "2"
 				output datas as e.g:- datas = {{'name'='Sparrow','job'='pirates'}};
 			boolean update(String table_name,Associative_array_1D datas,String conditions="true");conditions include sql command
 				e.g:- datas = {'name'='Sparrow','job'='pirates'};

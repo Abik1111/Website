@@ -53,7 +53,7 @@
 		
 		//Loads the data into the jagga object
 		public function loadFromDatabase($id){
-			$data = $this->dataBase->select(TABLE, null, ID."= $id");
+			$data = $this->dataBase->select(TABLE, null, "id = $id");
 			if($data==null){
 				return false;
 			}
@@ -324,7 +324,7 @@
 		private $id;
 		private $isJagga;
 		
-		public static function getMoneyFormat($value){
+		public static function echoMoneyFormat($value){
 			$number = floor($value);
 			$fraction = $value-$number;
 			$valueString = strVal($number);
@@ -337,7 +337,7 @@
 				}
 				$result .= $valueString[$pos];
 			}
-			return strrev($result);
+			echo strrev($result);
 		}
 		
 		//Takes in associative array of data and stores in the block
@@ -427,25 +427,15 @@
 		}
 		
 		//Simply returns all the jagga details
-		public function getAllJagga($numberOfJagga='', $indexOfPage='', $property_type='both'){
+		public function getAllJagga($numberOfJagga='', $indexOfPage=''){
 			$order = DATE_POSTED.' DESC';
 			$fields = array(ID,AREA,PRICE,LOCATION,IS_JAGGA);
-			$condition = null;
-			if($property_type != 'both'){
-				if($property_type == 'jagga'){
-					$condition = IS_JAGGA.'=1';
-				}
-				else{
-					$condition = IS_JAGGA.'=0';	
-				}
-			}
-			
 			if(is_numeric($numberOfJagga) && is_numeric($indexOfPage)){
 				$offset = $numberOfJagga*($indexOfPage-1);
-				$data = $this->dataBase->select(TABLE, $fields, $condition, $order, $numberOfJagga, $offset);
+				$data = $this->dataBase->select(TABLE, $fields, null, $order, $numberOfJagga, $offset);
 			}
 			else{
-				$data = $this->dataBase->select(TABLE, $fields, $condition, $order);
+				$data = $this->dataBase->select(TABLE, $fields, null, $order);
 				echo $this->dataBase->getErrors();
 			}
 			if(is_array($data)){
@@ -461,18 +451,9 @@
 		}
 		
 		//Returns the no. of page the result will have
-		public function getAllPagesNo($numberOfJagga, $property_type='both'){
+		public function getAllPagesNo($numberOfJagga){
 			$fields = array(ID);
-			$condition = null;
-			if($property_type !='both'){
-				if($property_type == 'jagga'){
-					$condition = IS_JAGGA.'=1';
-				}
-				else{
-					$condition = IS_JAGGA.'=0';	
-				}
-			}
-			$data = $this->dataBase->select(TABLE, $fields, $condition);
+			$data = $this->dataBase->select(TABLE, $fields);
 			$number = sizeof($data);
 			$number /= $numberOfJagga;
 			$number = ceil($number);
@@ -480,25 +461,11 @@
 		}
 		
 		//Search the jaggas depending upon keyword
-		public function getSearchedJagga($keyword, $numberOfJagga, $indexOfPage, $property_type='both'){
+		public function getSearchedJagga($keyword, $numberOfJagga, $indexOfPage){
 			$keyword_upper_caps = strtoupper($keyword);
 			$keyword_lower_caps = strtolower($keyword);
 			$keyword_first_cap = ucfirst($keyword);
-			$conditions='';
-			if($property_type!= 'both'){
-				if($property_type=='jagga'){
-					$conditions='('.IS_JAGGA.'= 1';
-				}
-				else{
-					$conditions=IS_JAGGA.'(= 0';
-				}
-				$conditions .= ') AND (';
-			}
-			else{
-				$conditions='(';
-			}
-			
-			$conditions .= ID." LIKE '%{$keyword}%'";
+			$conditions = ID." LIKE '%{$keyword}%'";
 			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword}%'";
 			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_upper_caps}%'";
 			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_lower_caps}%'";
@@ -507,7 +474,6 @@
 			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_upper_caps}%'";
 			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_lower_caps}%'";
 			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_first_cap}%'";
-			$conditions .= ')';
 			$order= DATE_POSTED.' DESC';
 			
 			$fields = array(ID,AREA,PRICE,LOCATION,IS_JAGGA);
@@ -530,25 +496,11 @@
 			}
 		}
 		
-		public function getResultsNo($keyword, $property_type='both'){
+		public function getResultsNo($keyword){
 			$keyword_upper_caps = strtoupper($keyword);
 			$keyword_lower_caps = strtolower($keyword);
 			$keyword_first_cap = ucfirst($keyword);
-			$conditions='';
-			if($property_type!= 'both'){
-				if($property_type=='jagga'){
-					$conditions='('.IS_JAGGA.'= 1';
-				}
-				else{
-					$conditions=IS_JAGGA.'(= 0';
-				}
-				$conditions .= ') AND (';
-			}
-			else{
-				$conditions='(';
-			}
-			
-			$conditions .= ID." LIKE '%{$keyword}%'";
+			$conditions = ID." LIKE '%{$keyword}%'";
 			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword}%'";
 			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_upper_caps}%'";
 			$conditions .= 'OR '.LOCATION." LIKE '%{$keyword_lower_caps}%'";
@@ -557,15 +509,14 @@
 			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_upper_caps}%'";
 			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_lower_caps}%'";
 			$conditions .= 'OR '.DESCRIPTION." LIKE '%{$keyword_first_cap}%'";
-			$conditions .= ')';
 			$fields = array(ID);
 			$data = $this->dataBase->select(TABLE, $fields, $conditions);
 			return sizeof($data);
 		}
 		
 		//Returns the no. of page the result will have
-		public function getSearchPagesNo($keyword, $numberOfJagga, $property_type='both'){
-			$number = $this->getResultsNo($keyword, $property_type);
+		public function getSearchPagesNo($keyword, $numberOfJagga){
+			$number = $this->getResultsNo($keyword);
 			$number /= $numberOfJagga;
 			$number = ceil($number);
 			return $number;
@@ -581,13 +532,11 @@
 						$string .= ', ';
 					}
 					$string .= '{'."\n";
-					$string .= '"id": "'.strVal($data[$i]->getId()).'",'."\n";
-					$string .= '"Location": "'.strVal($data[$i]->getLocation()).'",'."\n";
-					$string .= '"Area": "'.strVal($data[$i]->getArea()).'",'."\n";
-					$string .= '"Price": "Rs.'.JaggaBlock::getMoneyFormat(strVal($data[$i]->getPrice())).'/-",'."\n";
-					
-					$string .= '"image": "'.strVal($data[$i]->getCoverSrc()).'"'."\n";
-					
+					$string .= '"'.ID.'": '.strVal($data[$i]->getId()).','."\n";
+					$string .= '"'.LOCATION.'": "'.strVal($data[$i]->getLocation()).'",'."\n";
+					$string .= '"'.AREA.'": '.strVal($data[$i]->getArea()).','."\n";
+					$string .= '"'.PRICE.'": '.strVal($data[$i]->getPrice()).','."\n";
+					$string .= '"'.SRC.'": "'.strVal($data[$i]->getCoverSrc()).'"'."\n";
 					$string .= '}';
 				}
 			}

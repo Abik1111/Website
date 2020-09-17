@@ -67,6 +67,7 @@
 			$user->grant('INSERT,SELECT','property','property_table_request','%','client');
 			$user->grant('INSERT,SELECT','property','property_client','%','client');
 			$user->grant('INSERT,SELECT','property','property_client_request','%','client');
+			$user->grant('INSERT,SELECT','property','property_table','%','client');
 		}
 	}
 

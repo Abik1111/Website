@@ -96,7 +96,7 @@
 			<input type="number" name="price" required>
 		</div>
 		<div>
-			<label class="label">Owner Contact(Not shown to clients):</label>
+			<label class="label">Owner Contact:</label>
 			<input type="text" name="owner_contact" required>
 		</div>
 		<div>

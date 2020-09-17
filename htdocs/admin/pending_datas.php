@@ -1,6 +1,6 @@
 <?php
 	include 'Jagga.php';
-	define('DATAS_IN_PAGE', 5);
+	define('DATAS_IN_PAGE', 9);
 	
 	session_start();
 	if(!$_SESSION['is_connected']){
@@ -85,18 +85,15 @@
 			position: relative;
 			top: -103px;
 			left: 160px;
-		}.page{
+		}
+		.page{
 			text-align: center;
-			font-weight: bold;
 			font-size: 18px;
 		}
-		.page a{
-			color: #6F6F6F;
-		}
 		.check{
-			font-size: 24px;
-			color:#6F6F6F;
-			font-weight: bolder;
+			text-align: center;
+			font-size: 18px;
+			font-style: italic;
 		}
 	</style>
 </head>
@@ -141,7 +138,18 @@
 		<a href="?page=<?php echo($current_page-1);?>">&lt&lt prev</a>
 		<?php endif;?>
 		
-		<?php for($i=0; $i<$total_page; $i++):?>
+		<?php 
+			$initial = ($current_page-3);
+			$initial = $initial>=0?$initial:0;
+			$final = ($current_page+4);
+			if($final>=$total_page){
+				$final=$total_page;
+				$initial = $final-7;
+				$initial = $initial>=0?$initial:0;
+			}
+		?>
+
+		<?php for($i=$initial; $i<$final; $i++):?>
 		<a href="?page=<?php echo($i+1);?>"><?php echo ($i+1).' '?></a>
 		<?php endfor;?>
 		

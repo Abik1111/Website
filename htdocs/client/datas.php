@@ -1,22 +1,29 @@
-<?php 
-	//error_reporting(E_ERROR | E_PARSE);
-	include 'lib/server_database.php';
+<?php
+	include 'Jagga.php';
 	define('DATAS_IN_PAGE', 9);
-
+	
 	session_start();
 	if(!$_SESSION['is_connected']){
-		header("Loacation:login.php");
+		header("Location:login.php");
 	}
-	if(!$_SESSION['is_root']){
+	if($_SESSION['is_pending']){
 		header("Location:home.php");
 	}
-
 	$current_page = 1;
 	$total_page = 1;
+	$selector = new JaggaSelect($_SESSION['host'], $_SESSION['client_username'], $_SESSION['client_password']);
+	$searching = false;
+	$results = 0;
+	
+	
+	//Selcting the page
 	if(isset($_GET['page'])){
 		$current_page = $_GET['page'];
 	}
+	$data = $selector->getSelectedJagga($_SESSION['client_id'],DATAS_IN_PAGE, $current_page);
+	$total_page = $selector->getSelectedPagesNo($_SESSION['client_id'],DATAS_IN_PAGE);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,35 +47,46 @@
 			box-shadow: 0px 0px 0px 0px!important;
 		}
 		.button{
-			/*background: #cbb09c !important;*/
 			border-radius : 6px;
 			margin-left: 6px;
 			box-shadow: 0px 0px 0px 0px!important;
 		}
-		.card{
-			border-radius: 9px;
-			height: 30px !important;
-			box-shadow: 0px 0px 0px 0px!important;
-			border-width: 1px !important;
-			border-color:#6F6F6F !important;
-			border-style: groove;
-		}
-		.card-text{
-			top: 3px;
-			color: #6F6F6F;
-			font-size: 15px;
-			padding: 18px;
-			font-weight: bold;
-			position: relative;
-		}
-		.page{
-			text-align: center;
+		.search-text{
+			color: #9F9F9F;
 			font-size: 18px;
 		}
 		.label{
 			font-size: 24px;
 			color:#6F6F6F;
 			font-weight: bolder;
+		}
+		.card{
+			border-radius: 9px;
+			height: 100px !important;
+			box-shadow: 0px 0px 0px 0px!important;
+			border-width: 1px !important;
+			border-color:#6F6F6F !important;
+			border-style: groove;
+		}
+		.card-img{
+			width : 150px;
+			height: 100px;
+			padding: 3px;
+			border-radius: 9px;
+			position: relative;
+			border-width: 3px;
+			/*border-style: groove;*/
+		}
+		.card-text{
+			color: #6F6F6F;
+			font-size: 15px;
+			font-weight: bold;
+			position: relative;
+			top: -103px;
+			left: 160px;
+		}.page{
+			text-align: center;
+			font-size: 18px;
 		}
 		.check{
 			text-align: center;
@@ -77,41 +95,39 @@
 		}
 	</style>
 </head>
-<body class = "container" style="max-width: 600px">
+<body class="container">
 	<header class="header">
 		<a href="home.php" class = "header-text">
-			ADMIN
+			GHAR JAGGA
 		</a>
 	</header>
 	<nav class = "nav">
-		<a class ="btn right hide-on-down button" href="create_agent.php">Create</a>
 		<a class ="btn right hide-on-down button" href="home.php">Home</a>
 	</nav>
 	<?php if($current_page!=1):?>
-		<label class="page">Page no. <?php echo $current_page?></label>
+	<label class="page">Page no. <?php echo $current_page?></label>
 	<?php endif;?><br/>
-	<div class="label">Agents</div>
-	<?php 
-		$db = new Database($_SESSION['host'],$_SESSION['username'],$_SESSION['password'],'property');
-		$total_page = ceil((sizeof($db->select('property_agent',[]))-1)/DATAS_IN_PAGE);
-		$users = $db->select('property_agent',['id','username'],null,null,DATAS_IN_PAGE,$current_page);
-	?>
-	<?php if(sizeof($users)==0):?>
-		<div class="check center">No Agents</div>
+	<div class="label">Submitted properties</div>
+	<?php if(sizeof($data)==0):?>
+		<div class="check center">No Datas</div>
 	<?php else: ?>
-	<section>
-	<?php foreach ($users as $user):?>
-	<?php if($user['id']>1): ?>
-	<div class="card">
-		<a class="card-text" href="agent_details.php?userID=<?php echo($user['id']); ?>">
-			<?php echo "".$user['id'].".&nbsp;".$user['username'];?>
-		</a>
-	</div>
-	<?php endif; ?>
-	<?php endforeach; ?>
-	</section>
+	<?php foreach($data as $datum):?>
+	<a href="#?id=<?php $datum->echoId();?>">
+		<div class="card">
+			<img src="<?php $datum->echoCoverSrc();?>" class="card-img">
+			<div class="card-text">
+				<?php
+					echo "ID : ";$datum->echoId();echo " (";$datum->echoType();echo ")";echo '<br/>'; 
+					echo "Location : ";$datum->echoLocation();echo '<br/>'; 
+					echo "Area : ";$datum->echoArea();echo '<br/>';
+					echo "Price(Rs) : ";echo 'Rs. ';JaggaBlock::echoMoneyFormat($datum->getPrice());echo '/- ';?>
+			</div>
+		</div>
+	</a>
+	<?php endforeach;?>
 	<br/>
 	<br/>
+	
 	<div class="page">
 		<?php  if($current_page != 1):?>
 		<a href="?page=<?php echo($current_page-1);?>">&lt&lt prev</a>
@@ -137,6 +153,6 @@
 		<?php endif;?>
 	</div>
 	<br/><br/><br/><br/><br/><br/>
-	<?php endif;?>
+	<?php endif; ?>
 </body>
 </html>
