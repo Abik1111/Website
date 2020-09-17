@@ -21,10 +21,7 @@
             <nav id="header-nav" class="navbar navbar-default">
                 <div class="container">
                     <div class="navbar-header">
-                        <a
-                            href="index.html"
-                            class="pull-left visible-md visible-lg"
-                        >
+                        <a href="index.html" class="pull-left">
                             <div id="logo-photo"></div>
                         </a>
                         <div class="navbar-brand">
@@ -46,56 +43,83 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-
-                    <div class="collapse navbar-collapse" id="collapsed-navbar">
-                        <ul id="nav-list" class="nav navbar-nav navbar-right">
+                </div>
+            </nav>
+            <nav>
+                <div class="collapse navbar-collapse" id="collapsed-navbar">
+                    <div class="container">
+                        <ul id="nav-listed" class="nav navbar-nav navbar-left">
                             <li>
-                                <a href="index.html"
+                                <form
+                                    class="navbar-form navbar-left"
+                                    role="search"
+                                >
+                                    <div class="form-group">
+                                        <input
+                                            id="search-input"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Search"
+                                        />
+                                        <div class="dropdown">
+                                            <button
+                                                id="dropdown-btn"
+                                                type="button"
+                                                class="dropbtn"
+                                            >
+                                                All
+                                                <span class="caret"></span>
+                                            </button>
+                                            <div
+                                                id="dropdown-options"
+                                                class="dropdown-content"
+                                            >
+                                                <a
+                                                    onclick="$myNameSpc.changeDropdown('All')"
+                                                    >All</a
+                                                >
+                                                <a
+                                                    onclick="$myNameSpc.changeDropdown('Land')"
+                                                    >Land</a
+                                                >
+                                                <a
+                                                    onclick="$myNameSpc.changeDropdown('House')"
+                                                    >House</a
+                                                >
+                                            </div>
+                                        </div>
+                                        <button
+                                            id="search-button"
+                                            type="submit"
+                                            class="btn btn-default"
+                                        >
+                                            <span
+                                                class="glyphicon glyphicon-search"
+                                            ></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </li>
+                            <li>
+                                <a href="#"
                                     ><span
                                         class="glyphicon glyphicon-home"
-                                    ></span
-                                    ><br class="hidden-xs" />
+                                    ></span>
                                     Home</a
                                 >
                             </li>
                             <li>
-                                <a href="sell.html"
-                                    ><span
-                                        class="glyphicon glyphicon-chevron-down"
-                                    ></span
-                                    ><br class="hidden-xs" />
-                                    Sell</a
+                                <a href="calc.html"
+                                    ><span class="fas fa-calculator"></span>
+                                    Calculator</a
                                 >
                             </li>
                             <li>
-                                <a href="Login.html"
+                                <a href="#"
                                     ><span
                                         class="glyphicon glyphicon-user"
                                     ></span>
                                     Login</a
-                                >
-                            </li>
-                            <li>
-                                <a href="calc.html"
-                                    ><span
-                                        class="fas fa-calculator"
-                                        style="
-                                            font-size: 1.5em;
-                                            padding-top: 5px;
-                                        "
-                                    ></span></a
-                                >
-                            </li>
-                            <li class="active">
-                                <a href="supsearch.html" 
-                                    ><span
-                                        class="glyphicon glyphicon-search" 
-                                        style="font-size: 1.5em;padding-top:5px;"
-                                    ></span
-                                    ><br class="hidden-xs" />
-                                    <span class="sr-only"
-                                        >(current)</span
-                                    ></a
                                 >
                             </li>
                         </ul>
@@ -103,119 +127,7 @@
                 </div>
             </nav>
         </header>
-        <div id="main-content" class="container">
-               
-<!--<div class="filter_section">-->
-     <div class="col-md-4">
-  <!-- <div class="filter1">-->
-       <h3>  <label class="label">Property Type</label></h3><br>
-	        <select class="select">
-	           <option>Land</option> 
-	           <option>Building</option> 
-	           <option>Flat</option> 
-	           <option>Restaurant</option> 
-	           <option>Cafe</option>  
-	        </select>
-       
-    </div>   
-   <!-- </div>-->
-   
-   
-        <div class="col-md-4">
-
-    <!-- <div class="filter1">-->
-          <h3><label class="label">Dsitrict</label></h3><br>
-	        <select class="select">
-                
-                 
-              
-                
-               <option> achham </option>
-               <option> arghakhanchi</option>
-               <option> baglung</option>
-               <option> baitadi</option>
-               <option> bajhang</option>
-               <option> bajura</option>
-               <option> banke</option>
-               <option> bara</option>
-               <option> bardiya</option>
-               <option> bhaktapur</option>
-               <option> bhojpur</option>
-               <option> chitwan</option>
-               <option> dadeldhura</option>
-               <option> dailekh</option>
-               <option> dang</option>
-               <option> darchula</option>
-               <option> dhading</option>
-               <option> dhankuta</option>
-               <option> dhanusha</option>
-              <option>  dolakha</option>
-              <option>  dolpa</option>
-             <option>   doti</option>
-             <option>   easternrukum</option>
-             <option>   gorkha</option>
-             <option>   gulmi</option>
-            <option>    humla</option>
-             <option>   ilam</option>
-              <option>  jajarkot</option>
-             <option>   jhapa</option>
-             <option>   jumla</option>
-             <option>   kailali</option>
-             <option>   kalikot</option>
-             <option>   kanchanpur</option>
-             <option>   kapilavastu</option>
-             <option>   kaski</option>
-             <option>   kathmandu</option>
-             <option>   kavrepalanchok</option>
-             <option>   khotang</option>
-             <option>   lalitpur</option>
-              <option>  lamjung</option>
-               <option> mahottari</option>
-              <option> makwanpur</option>
-              <option>  manang</option>
-              <option>  morang</option>
-             <option>   mugu</option>
-              <option>  mustang</option>
-              <option>  myagdi</option>
-              <option>  nawalpur</option>
-              <option>  nuwakot</option>
-             <option>   okhaldhunga</option>
-             <option>   palpa</option>
-             <option>   panchthar </option>
-                
-	         
-	        </select>
-       
-  
-
-    </div>
-         <div class="col-md-4">
-
-   <!-- <div class="filter1">-->
-        
-         <h3> <label class="label">City / Tole</label></h3><br>
-	        
-        <input type="text" class="text" placeholder="City">
-    
-        
-    <!--</div>-->
-    </div>
-       <br>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-          <!--  <a  class = 'btn btn-first'  href = '#'>Search</a>-->
-             <a href="#" onclick="$myNameSpc.loadSearchData(true)" class="btn btn-first">
-              Search
-            </a>
-        </div>
-        <div class="col-md-4">
-        </div>
- 
-<script>
-    $('.select2').select2();
-</script>
-            
+        <div id="main-content" class="container">   
          
         </div>
         <footer class="panel-footer">
@@ -254,6 +166,6 @@
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/ajaxUtils.js"></script>
-        <script src="js/script.js"></script>
+        <script src="js/searchRes.js"></script>
     </body>
 </html>

@@ -201,7 +201,6 @@ position: absolute;
 .slideshow-container {
 max-height: 100%;
   position: relative;
-  position: relative;
   margin: auto;
     max-width: 100%;
     
@@ -288,3 +287,45 @@ table, th, td {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+
+
+.box11
+{
+    height: 30px;
+    width: 100px;
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    color: black;
+}
+
+.box11:hover
+{
+    
+    cursor: pointer;
+   color: darkorange;
+  
+}
+.tooltiptext {
+  visibility: hidden;
+  width: 130px;
+  background-color: white;
+  color: gray;
+  text-align: left;
+    padding: 5px;
+  transition-delay: 0.5s;
+   
+  border: 1px solid black !important;
+    /* Position the tooltip */
+  position: absolute;
+    font-size: 12px;
+  z-index: 1;
+    margin-top: 40px;
+}
+.box11:hover .tooltiptext {
+  visibility: visible;
+}
+
+
