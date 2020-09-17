@@ -306,6 +306,26 @@ table, th, td {
     
     cursor: pointer;
    color: darkorange;
+  
+}
+.tooltiptext {
+  visibility: hidden;
+  width: 130px;
+  background-color: white;
+  color: gray;
+  text-align: left;
+    padding: 5px;
+  transition-delay: 0.5s;
+   
+  border: 1px solid black !important;
+    /* Position the tooltip */
+  position: absolute;
+    font-size: 12px;
+  z-index: 1;
+    margin-top: 40px;
+}
+.box11:hover .tooltiptext {
+  visibility: visible;
 }
 
 
