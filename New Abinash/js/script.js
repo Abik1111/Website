@@ -122,25 +122,25 @@
         finalHTML += '<div class="center">';
         finalHTML += "<div class='pagination'>";
         if (global.currentPage > 1) {
-            pageString = '<a href="#" onclick="{{function}}({{i}})">&laquo;</a>';
+            pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})">&laquo;</a>';
             pageString = insertProperty(pageString, "function", functionx);
             pageString = insertProperty(pageString, "i", (global.currentPage - 1));
 
         }
         else {
-            pageString = '<a onclick="{{function}}(1)">&laquo;</a>';
+            pageString = '<a href="?page_number=i" onclick="{{function}}(1)">&laquo;</a>';
             pageString = insertProperty(pageString, "function", functionx)
         }
         finalHTML += pageString;
         if (numOfPages < 10) {
             for (var i = 0; i < numOfPages; i++) {
                 if ((i + 1) == global.currentPage) {
-                    pageString = '<a href="#" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
+                    pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                     pageString = insertProperty(pageString, "i", i + 1);
                     pageString = insertProperty(pageString, "function", functionx);
                 }
                 else {
-                    pageString = '<a href="#" onclick="{{function}}({{i}})">{{i}}</a>';
+                    pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})">{{i}}</a>';
                     pageString = insertProperty(pageString, "i", i + 1);
                     pageString = insertProperty(pageString, "function", functionx);
 
@@ -152,12 +152,12 @@
             if (global.currentPage - 1 >= 2 && global.currentPage - numOfPages <= -2) {
                 for (var i = global.currentPage - 2; i <= global.currentPage + 2; i++) {
                     if (i == global.currentPage) {
-                        pageString = '<a href="#" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
+                        pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                         pageString = insertProperty(pageString, "i", i);
                         pageString = insertProperty(pageString, "function", functionx);
                     }
                     else {
-                        pageString = '<a href="#" onclick="{{function}}({{i}})">{{i}}</a>';
+                        pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})">{{i}}</a>';
                         pageString = insertProperty(pageString, "i", i);
                         pageString = insertProperty(pageString, "function", functionx);
 
@@ -168,12 +168,12 @@
             else if (global.currentPage - 1 < 2) {
                 for (var i = 1; i <= 5; i++) {
                     if (i == global.currentPage) {
-                        pageString = '<a href="#" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
+                        pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                         pageString = insertProperty(pageString, "i", i);
                         pageString = insertProperty(pageString, "function", functionx);
                     }
                     else {
-                        pageString = '<a href="#" onclick="{{function}}({{i}})">{{i}}</a>';
+                        pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})">{{i}}</a>';
                         pageString = insertProperty(pageString, "i", i);
                         pageString = insertProperty(pageString, "function", functionx);
 
@@ -184,12 +184,12 @@
             else{
                 for(var i =numOfPages-4;i<=numOfPages;i++){
                     if (i==global.currentPage){
-                        pageString='<a href="#" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
+                        pageString='<a href="?page_number=i" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                         pageString=insertProperty(pageString, "i", i);
                         pageString=insertProperty(pageString, "function", functionx);
                     }
                     else{
-                        pageString='<a href="#" onclick="{{function}}({{i}})">{{i}}</a>';
+                        pageString='<a href="?page_number=i" onclick="{{function}}({{i}})">{{i}}</a>';
                         pageString=insertProperty(pageString, "i", i);
                         pageString=insertProperty(pageString, "function", functionx);
         
@@ -199,14 +199,14 @@
             }
         }
         if (global.currentPage < numOfPages) {
-            pageString = '<a href="#" onclick="{{function}}({{i}})">&raquo;</a>';
+            pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})">&raquo;</a>';
             pageString = insertProperty(pageString, "i", (global.currentPage + 1));
             pageString = insertProperty(pageString, "function", functionx);
 
 
         }
         else {
-            pageString = '<a onclick="{{function}}({{i}})">&raquo;</a>';
+            pageString = '<a href="?page_number=i" onclick="{{function}}({{i}})">&raquo;</a>';
             pageString = insertProperty(pageString, "i", numOfPages);
             pageString = insertProperty(pageString, "function", functionx);
 
