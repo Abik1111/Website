@@ -201,7 +201,6 @@ position: absolute;
 .slideshow-container {
 max-height: 100%;
   position: relative;
-  position: relative;
   margin: auto;
     max-width: 100%;
     
@@ -288,3 +287,25 @@ table, th, td {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+
+
+.box11
+{
+    height: 30px;
+    width: 100px;
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    color: black;
+}
+
+.box11:hover
+{
+    
+    cursor: pointer;
+   color: darkorange;
+}
+
+
