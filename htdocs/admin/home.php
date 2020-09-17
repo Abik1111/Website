@@ -53,7 +53,6 @@
 			font-size: 18px;
 			padding: 20px;
 			font-weight: bold;
-			text-decoration: underline;
 		}
 	</style>
 </head>

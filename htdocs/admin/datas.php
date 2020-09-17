@@ -107,11 +107,12 @@
 			left: 160px;
 		}.page{
 			text-align: center;
-			font-weight: bold;
 			font-size: 18px;
 		}
-		.page a{
-			color: #6F6F6F;
+		.check{
+			text-align: center;
+			font-size: 18px;
+			font-style: italic;
 		}
 	</style>
 </head>
@@ -172,10 +173,17 @@
 		<?php endif;?>
 		
 		<?php 
-			
+			$initial = ($current_page-3);
+			$initial = $initial>=0?$initial:0;
+			$final = ($current_page+4);
+			if($final>=$total_page){
+				$final=$total_page;
+				$initial = $final-7;
+				$initial = $initial>=0?$initial:0;
+			}
 		?>
 
-		<?php for($i=0; $i<$total_page; $i++):?>
+		<?php for($i=$initial; $i<$final; $i++):?>
 		<a href="?page=<?php echo($i+1);?>"><?php echo ($i+1).' '?></a>
 		<?php endfor;?>
 		

@@ -495,6 +495,30 @@
 				return false;
 			}
 		}
+
+		public function getSelectedJagga($id, $numberOfJagga, $indexOfPage){
+			$conditions = USER_ID." = $id";
+			$order= DATE_POSTED.' DESC';
+
+			$fields = array(ID,AREA,PRICE,LOCATION,IS_JAGGA);
+			if(is_numeric($numberOfJagga) && is_numeric($indexOfPage)){
+				$offset = $numberOfJagga*($indexOfPage-1);
+				$data = $this->dataBase->select(TABLE, $fields, $conditions, $order, $numberOfJagga, $offset);
+			}
+			else{
+				$data = $this->dataBase->select(TABLE, $fields, $conditions, $order);
+			}
+			if(is_array($data)){
+				$jaggas = array();
+				for($i=0; $i<sizeof($data); $i++){ 
+					$jaggas[] = new JaggaBlock($data, $i);
+				}
+				return $jaggas;
+			}
+			else{
+				return false;
+			}
+		}
 		
 		public function getResultsNo($keyword){
 			$keyword_upper_caps = strtoupper($keyword);
@@ -517,6 +541,15 @@
 		//Returns the no. of page the result will have
 		public function getSearchPagesNo($keyword, $numberOfJagga){
 			$number = $this->getResultsNo($keyword);
+			$number /= $numberOfJagga;
+			$number = ceil($number);
+			return $number;
+		}
+
+		public function getSelectedPagesNo($id, $numberOfJagga){
+			$conditions = USER_ID." = $id";
+			$data = $this->dataBase->select(TABLE, [], $conditions);
+			$number = sizeof($data);
 			$number /= $numberOfJagga;
 			$number = ceil($number);
 			return $number;
@@ -953,6 +986,39 @@
 		public function getAllPagesNo($numberOfJagga){
 			$fields = array(ID);
 			$data = $this->dataBase->select(REQUEST_TABLE, $fields);
+			$number = sizeof($data);
+			$number /= $numberOfJagga;
+			$number = ceil($number);
+			return $number;
+		}
+
+		public function getSelectedJagga($id, $numberOfJagga, $indexOfPage){
+			$conditions = USER_ID." = $id";
+			$order= DATE_POSTED.' DESC';
+
+			$fields = array(ID,AREA,PRICE,LOCATION,IS_JAGGA);
+			if(is_numeric($numberOfJagga) && is_numeric($indexOfPage)){
+				$offset = $numberOfJagga*($indexOfPage-1);
+				$data = $this->dataBase->select(REQUEST_TABLE, $fields, $conditions, $order, $numberOfJagga, $offset);
+			}
+			else{
+				$data = $this->dataBase->select(REQUEST_TABLE, $fields, $conditions, $order);
+			}
+			if(is_array($data)){
+				$jaggas = array();
+				for($i=0; $i<sizeof($data); $i++){ 
+					$jaggas[] = new JaggaBlock($data, $i);
+				}
+				return $jaggas;
+			}
+			else{
+				return false;
+			}
+		}
+
+		public function getSelectedPagesNo($id, $numberOfJagga){
+			$conditions = USER_ID." = $id";
+			$data = $this->dataBase->select(REQUEST_TABLE, [], $conditions);
 			$number = sizeof($data);
 			$number /= $numberOfJagga;
 			$number = ceil($number);

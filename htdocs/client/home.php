@@ -53,7 +53,6 @@
 			font-size: 18px;
 			padding: 20px;
 			font-weight: bold;
-			text-decoration: underline;
 		}
 		.inform{
 			text-align: center;
@@ -83,7 +82,7 @@
 			<div class = "col s6 md">
 				<div class = "card">
 					<div class = "card-content center">
-						<a href="#">
+						<a href="datas.php">
 							<img src="../img/datas.png" class = "card-img">
 							<label class="card-text">Submitted Datas</label>
 						</a>
@@ -93,7 +92,7 @@
 			<div class = "col s6 md3">
 				<div class = "card">
 					<div class = "card-content center">
-						<a href="#">
+						<a href="pending_datas.php">
 							<img src="../img/pending_datas.png" class = "card-img">
 							<label class="card-text">Pending Datas</label>
 						</a>
