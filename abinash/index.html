@@ -51,7 +51,7 @@
                                 <form
                                     class="navbar-form navbar-left"
                                     role="search"
-                                    onclick="$myNameSpc.loadSearchData(true)"
+                            onsubmit="(event)=>{event.preventDefault();}"
                                 >
                                     <div class="form-group">
                                         <input
@@ -88,7 +88,10 @@
                                             </div>
                                         </div>
                                         <!-- <a href="supsearch.html"> -->
-                                        <button
+                                        
+                                    <!-- </a> -->
+                                    </div>
+                                    <button
                                            
                                             onclick="$myNameSpc.loadSearchData(true)"
                                         >
@@ -96,9 +99,8 @@
                                                 class="glyphicon glyphicon-search"
                                             ></span>
                                         </button>
-                                    <!-- </a> -->
-                                    </div>
                                 </form>
+                                
                             </li>
                             <li class="active">
                                 <a href="#"
