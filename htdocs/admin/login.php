@@ -1,6 +1,5 @@
 <?php 
-
-	//error_reporting(E_ERROR | E_PARSE);
+	error_reporting(E_ERROR | E_PARSE);
 	include 'lib/server_database.php';
 
 	session_start();
@@ -54,22 +53,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<tile>Ghar Jagga</title>
+	<title>Ghar Jagga</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<style type="text/css">
+		.header{
+			background: #FFFFFF;
+			height: 50px;
+			text-align: center;
+		}
+		.header-text{
+			font-weight: bold;
+			font-size: 35px;
+			color: rgb(39,169,157);
+		}
+		.nav{
+			background-color: #FFFFFF;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.button{
+			/*background: #cbb09c !important;*/
+			border-radius : 6px;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.label{
+			color: #9F9F9F;
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.submit-button{
+			/*background: #cbb09c !important;*/
+			border-radius : 6px;
+			box-shadow: 0px 0px 0px 0px!important;
+		}
+		.card{
+			border-top-right-radius: 21px;
+			border-bottom-left-radius: 21px;
+		}
+		.error{
+			color: red;
+		}
+	</style>
 </head>
-<body>
-	<section>
-		<h4">ADMIN LOGIN</h4>
-		<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-		<label>Username:</label>
-				<input type="text" name="username" value="<?php echo $username ?>">
-				<div><?php echo $errors['username']; ?></div>
-			<label>Password:</label>
-				<input type="password" name="password" value="<?php echo $password ?>">
-			<div><?php echo $errors['password']; ?></div>
+<body class="container" style="max-width: 300px">
+	<br/><br/><br/><br/><br/>
+	<header class="header header-text">
+		ADMIN LOGIN
+	</header>
+	<div class="card">
+		<div class="card-content white-text">
+			<span class="card-title header-text">Sign in to continue...</span>
+			<form class="white" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 			<div>
-				<input type="submit" name="login" value = "login">
+				<label class="label">Username:</label>
+				<input style="border-radius: 9px;padding-left: 9px;" type="text" name="username" value="<?php echo $username ?>" required autofocus >
+				<div class="error"><?php echo $errors['username']; ?></div>
 			</div>
-		</form>
-	</section>
+			<div>
+				<label class="label">Password:</label>
+				<input style="border-radius: 9px;padding-left: 9px" type="password" name="password" value="<?php echo $password ?>" required>
+				<div class="error"><?php echo $errors['password']; ?></div>
+			</div>
+			<br/><br/>
+			<div class = "center">
+				<input class ="btn submit-button" type="submit" name="login" value = "login" class="btn brand z-depth-0">
+			</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

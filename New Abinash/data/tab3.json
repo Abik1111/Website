@@ -1,0 +1,78 @@
+{
+"desired_properties":[{
+"id": 13,
+"Location": "New Baneshwor",
+"Area": 1555,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 12,
+"Location": "Lalitpur",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 11,
+"Location": "Lalitpur",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultHouse.png"
+}, {
+"id": 10,
+"Location": "Pulchowk",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultHouse.png"
+}, {
+"id": 9,
+"Location": "Pulchowk",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultHouse.png"
+}, {
+"id": 8,
+"Location": "Pulchowk",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultHouse.png"
+}, {
+"id": 7,
+"Location": "Airport",
+"Area": 200,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 6,
+"Location": "Pulchowk",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultHouse.png"
+}, {
+"id": 5,
+"Location": "Patan",
+"Area": 12,
+"Price": "Rs.0/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 4,
+"Location": "Lalitpur",
+"Area": 1555,
+"Price": "Rs.1,32,465/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 3,
+"Location": "Pulchowk",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 2,
+"Location": "Lalitpur",
+"Area": 1555,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}]
+,
+"num_of_pages":9,
+"current_page":"3"
+}

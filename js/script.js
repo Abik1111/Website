@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 (function (global) {
 
     var myNameSpc = {};
@@ -10,7 +8,13 @@
 
     var insertHtml = function (selector, html) {
         var targetElem = document.querySelector(selector);
-        targetElem.innerHTML = html;
+        try{
+            targetElem.innerHTML = html;
+        }
+        catch(e){
+            console.log("this is not homepage")
+        }
+        
     };
     var insertProperty = function (string, propName, propValue) {
         var propToReplace = "{{" + propName + "}}";
@@ -20,7 +24,7 @@
 
     document.addEventListener("DOMContentLoaded",
         function (event) {
-            myNameSpc.loadTabResults(true);
+                myNameSpc.loadTabResults(true);            
 
         });
 
@@ -72,10 +76,8 @@
     myNameSpc.loadSearchData = function (naya) {
         if (naya === true) {
             global.currentPage = 1;
-            console.log("naya ho!!");
         }
         else {
-            console.log("naya haina hai!!")
             global.currentPage = naya;
         }
         $ajaxUtils.sendGetRequest(searchResults, buildAndShowResultsHTML);
@@ -223,4 +225,3 @@
     }
     global.$myNameSpc = myNameSpc;
 })(window);
->>>>>>> eb8469966c6027d05b490a0beb5be81def804ad6
