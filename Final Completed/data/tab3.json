@@ -1,0 +1,103 @@
+{
+"desired_properties":[{
+"id": 40,
+"Location": "Harihar Bhawan",
+"Area": 123456,
+"Price": "Rs.13,154/-",
+"image": "Images/Property_Images/40/flat,550x550,075,f.u3.jpg"
+}, {
+"id": 39,
+"Location": "Pulchowk",
+"Area": 1555,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "Images/Property_Images/39/b5c89a7bcaafdf666c120a6cca74bbb2.jpg"
+}, {
+"id": 38,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 37,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 36,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 35,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 34,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 33,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 32,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 31,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 30,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 29,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 28,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 27,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 26,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "img/DefaultLand.jpg"
+}, {
+"id": 25,
+"Location": "Repeated",
+"Area": 12,
+"Price": "Rs.5,00,00,00,000/-",
+"image": "Images/Property_Images/25/Robert-Downey-Jr-as-Tony-Stark.jpg"
+}]
+,
+"num_of_pages":3
+,
+"current_page":1
+}

@@ -1,0 +1,218 @@
+<?php
+  include 'Jagga.php';
+  $data = new JaggaRetrieve('localhost', 'dilip', '123456789');
+  
+  $result = false;
+  if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $result = $data->loadFromDatabase($id);
+  }
+?>
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE PROPERTY SITE</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+</head>
+
+<body>
+    <header>
+        <nav id="header-nav" class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="index.html" class="pull-left visible-md visible-lg">
+                        <div id="logo-photo"></div>
+                    </a>
+                    <div class="navbar-brand">
+
+                        <a href="index.html">
+                            <h1>Ghar Jagga</h1>
+                        </a>
+                        <p>Real real-estates</p>
+                    </div>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsed-navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="collapsed-navbar">
+                    <ul id="nav-list" class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="index.html"><span class="glyphicon glyphicon-home"></span><br class="hidden-xs"> Home<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li>
+                            <a href="buy.html"><span class="glyphicon glyphicon-chevron-up"></span><br class="hidden-xs"> Buy</a>
+                        </li>
+                        <li>
+                            <a href="sell.html"><span class="glyphicon glyphicon-chevron-down"></span><br class="hidden-xs"> Sell</a>
+                        </li>
+                        <li>
+                            <a href="supsearch.html"><span class="glyphicon glyphicon-search"></span><br class="hidden-xs"> Search</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+   
+<div class="col-md-6">
+<div class="slideshow-container">
+<!-- to do-->
+<?php for($i=0; $i<$data->getNumberOfImages(); $i++): ?>
+  <div class="mySlides">
+    <div class="numbertext"><?php echo ($i+1).'/'.$data->getNumberOfImages();//// 1/4?></div>
+      <img src="<?php  $data->echoImageSrc($i);?>" style="width:100%; max-height: 400px; border: 1px solid #88E2F2 !important; object-fit: cover; border-radius: 15px;">
+    <div class="text"></div>
+  </div>
+<?php endfor;?>    
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+
+    </div>
+
+   <!--To do-->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+    
+</div>
+     </div>
+        <script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+<div class="col-md-6">
+   
+    
+        <div class="Description1">
+            <table style="width:40%; font-size: 20px;">
+  <tr>
+    <td><b style="color: darkorange">Location  </b></td>
+      <td>  : <?php $data->echoLocation();?></td> 
+  </tr>
+
+  <tr>
+    <td><b style="color: darkorange">    Area </b></td>
+      <td>  : <?php $data->echoArea();?></td>
+  </tr>
+  
+  <tr>
+    <td><b style="color: darkorange"> Price  </b></td>
+      <td> : Rs.<?php JaggaBlock::echoMoneyFormat($data->getPrice());?>/-</td>
+  </tr>
+  
+  <tr>
+    <td><b style="color: darkorange">   Talla   </b></td>
+      <td> : $ talla</td>
+  </tr>
+                  <tr>
+    <td><b style="color: darkorange"> Built in  </b></td>
+                      <td> : 2016</td>
+    
+  </tr>
+                
+                  <tr>
+    <td><b style="color: darkorange"> Built in  </b></td>
+                      <td> : 2016</td>
+    
+  </tr>
+                
+                
+</table>
+        
+            
+
+     <!--  <h1 style="text-align: center"> <b style="color: skyblue">Description</b></h1><br>
+            <h4> <b style="color: darkorange">Location</b> : Nayabazar<br>
+               <b style="color: darkorange"> Price</b> : 2 crore<br>
+                <b style="color: darkorange"> Size</b> : 5 Aana<br>
+                <b style="color: darkorange">Talla </b>: $ talla<br>
+                <b style="color: darkorange"> Built in</b> : 2016<br><br>
+--><h3><b>Description</b></h3>
+                <h5 style="color: gray; line-height: 120%; height: 150px; overflow-y: scroll; margin-bottom: 10px; padding: 10px; border-top: 1px solid gray !important; ">
+                <?php $data->echoArea();//The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is negotiable.The House is in Good condition. It very good and the price is?> 
+                </h5>
+              </h4>
+        </div>
+    </div>
+      <div class="col-md-6">
+            
+    </div>
+     <div class="col-md-6">
+         <h5 class="Description2">
+        <b>Contact Details</b><br>
+        9863636363, 983636363, 01325455<br>
+        fortune_teller2000@gmail.com
+         
+         </h5>
+    </div>
+       
+    <footer>
+
+    </footer>
+
+
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="practice.js"></script>
+    <script src="js/script.js"></script>
+
+
+    <!--
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha3849/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+-->
+
+</body></html>
