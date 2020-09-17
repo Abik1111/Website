@@ -12,6 +12,7 @@
             targetElem.innerHTML = html;
         }
         catch(e){
+            console.log("this is not homepage")
         }
         
     };
