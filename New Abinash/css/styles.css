@@ -5,7 +5,7 @@ body
     height: 100vh;
     /* position: relative; */
     /* overflow: hidden; */
-    background-color: black;
+    background: white;
     
 }
 #header-nav{
@@ -401,3 +401,22 @@ button.dropbtn{
         left:43px;
     } */ 
 }
+
+.Dropdown_select
+{
+    width: auto;
+     border-top: 1px solid white !important;
+     border-bottom: 1px solid white !important;
+    height: 34px;
+    cursor: pointer;
+    border-right: 1px solid gray !important;
+    border-left: 1px solid gray !important;
+   vertical-align: middle;
+    outline: none;
+    
+}
+.Dropdown_select select
+{
+    border: 1px solid white !important;
+}
+
