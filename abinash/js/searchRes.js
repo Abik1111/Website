@@ -18,10 +18,10 @@
 
     document.addEventListener("DOMContentLoaded",
         function (event) {
-            myNameSpc.loadTabResults(true);
+            myNameSpc.loadSearchData(true);
             console.log("DOM load bhayo");
 
-        },!1);
+        });
         
     myNameSpc.loadTabResults = function (naya) {
         console.log("loadtabresults called");
