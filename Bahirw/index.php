@@ -123,6 +123,8 @@
                                             id="search-button"
                                             type="submit"
                                             class="btn btn-default"
+                                            onclick="$myNameSpc.loadSearchResults(true)"
+
                                         >
                                             <span
                                                 class="glyphicon glyphicon-search"
