@@ -52,6 +52,8 @@
         finalHTML += '<div id="property" class="row">';
         var desiredProperties = results.desired_properties;
         var numOfPages = results.num_of_pages;
+        var currentPage=results.current_page;
+
         for (var i = 0; i < desiredProperties.length; i++) {
             var html = searchResultsBodyHTML;
             html = insertProperty(html, "image", desiredProperties[i].image);
@@ -62,7 +64,7 @@
             finalHTML += html;
         }
         finalHTML += "</div>";
-        pagination = insertPagination(numOfPages, "$myNameSpc.loadTabResults");
+        pagination = insertPagination(currentPage, numOfPages, "$myNameSpc.loadTabResults");
         finalHTML += pagination;
         return finalHTML;
     }
@@ -100,7 +102,7 @@
         finalHTML += "<div id='property' class='row'>";
         var desiredProperties = results.desired_properties;
         var numOfPages = results.num_of_pages;
-        global.currentPage=results.current_page;
+        var currentPage=results.current_page;
         for (var i = 0; i < desiredProperties.length; i++) {
             var html = searchResultsBodyHTML;
             html = insertProperty(html, "image", desiredProperties[i].image);
@@ -111,21 +113,25 @@
             finalHTML += html;
         }
         finalHTML += "</div>";
-        pagination = insertPagination(numOfPages, "$myNameSpc.loadSearchData");
+        console.log("Idiot");
+        console.log(numOfPages);
+        console.log(currentPage);
+        pagination = insertPagination(currentPage, numOfPages, "$myNameSpc.loadSearchData");
         finalHTML += pagination;
         return finalHTML
     }
-    function insertPagination(numOfPages, functionx) {
+    function insertPagination(currentPage, numOfPages, functionx) {
         console.log(numOfPages);
+        console.log(currentPage);
         var finalHTML;
         finalHTML = "";
         finalHTML = '<div id="page-number" class="row">';
         finalHTML += '<div class="center">';
         finalHTML += "<div class='pagination'>";
-        if (global.currentPage > 1) {
+        if (currentPage > 1) {
             pageString = '<a href="?page_number={{i}}" onclick="{{function}}({{i}})">&laquo;</a>';
             pageString = insertProperty(pageString, "function", functionx);
-            pageString = insertProperty(pageString, "i", (global.currentPage - 1));
+            pageString = insertProperty(pageString, "i", (currentPage - 1));
 
         }
         else {
@@ -135,7 +141,7 @@
         finalHTML += pageString;
         if (numOfPages < 10) {
             for (var i = 0; i < numOfPages; i++) {
-                if ((i + 1) == global.currentPage) {
+                if ((i + 1) == currentPage) {
                     pageString = '<a href="?page_number={{i}}" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                     pageString = insertProperty(pageString, "i", i + 1);
                     pageString = insertProperty(pageString, "function", functionx);
@@ -150,9 +156,9 @@
             }
         }
         else {
-            if (global.currentPage - 1 >= 2 && global.currentPage - numOfPages <= -2) {
-                for (var i = global.currentPage - 2; i <= global.currentPage + 2; i++) {
-                    if (i == global.currentPage) {
+            if (currentPage - 1 >= 2 && currentPage - numOfPages <= -2) {
+                for (var i = currentPage - 2; i <= currentPage + 2; i++) {
+                    if (i == currentPage) {
                         pageString = '<a href="?page_number={{i}}" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                         pageString = insertProperty(pageString, "i", i);
                         pageString = insertProperty(pageString, "function", functionx);
@@ -166,9 +172,9 @@
                     finalHTML+=pageString;
                 }
             }
-            else if (global.currentPage - 1 < 2) {
+            else if (currentPage - 1 < 2) {
                 for (var i = 1; i <= 5; i++) {
-                    if (i == global.currentPage) {
+                    if (i == currentPage) {
                         pageString = '<a href="?page_number={{i}}" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                         pageString = insertProperty(pageString, "i", i);
                         pageString = insertProperty(pageString, "function", functionx);
@@ -184,7 +190,7 @@
             }
             else{
                 for(var i =numOfPages-4;i<=numOfPages;i++){
-                    if (i==global.currentPage){
+                    if (i==currentPage){
                         pageString='<a href="?page_number={{i}}" onclick="{{function}}({{i}})" class="active">{{i}}</a>';
                         pageString=insertProperty(pageString, "i", i);
                         pageString=insertProperty(pageString, "function", functionx);
@@ -199,9 +205,9 @@
                }
             }
         }
-        if (global.currentPage < numOfPages) {
+        if (currentPage < numOfPages) {
             pageString = '<a href="?page_number={{i}}" onclick="{{function}}({{i}})">&raquo;</a>';
-            pageString = insertProperty(pageString, "i", (global.currentPage + 1));
+            pageString = insertProperty(pageString, "i", (currentPage + 1));
             pageString = insertProperty(pageString, "function", functionx);
 
 
