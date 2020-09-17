@@ -19,10 +19,12 @@
     document.addEventListener("DOMContentLoaded",
         function (event) {
             myNameSpc.loadTabResults(true);
+            console.log("DOM load bhayo");
 
         });
         
     myNameSpc.loadTabResults = function (naya) {
+        console.log("loadtabresults called");
         if (naya === true) {
             global.currentPage = 1;
             console.log("naya ho!!");
@@ -39,10 +41,7 @@
         $ajaxUtils.sendGetRequest(searchResultsBodyHTML,
             function (searchResultsBodyHTML) {
                 var searchResultsViewHTML = buildTabViewHTML(results, searchResultsBodyHTML);
-                // finalHTML="";
-                insertHtml("#index-page", searchResultsViewHTML)
-
-
+                insertHtml("#main-content", searchResultsViewHTML)
             }, false);
     }
 
@@ -68,17 +67,17 @@
     }
 
     myNameSpc.loadSearchData = function (naya) {
+        console.log("loadSearchData called!!");
         if (naya === true) {
             global.currentPage = 1;
-            console.log("naya ho!!");
         }
         else {
-            console.log("naya haina hai!!")
             global.currentPage = naya;
         }
         $ajaxUtils.sendGetRequest(searchResults, buildAndShowResultsHTML);
     };
     myNameSpc.loadDataDetails = function (id) {
+        console.log("Yo function call bhayo!!");
         $ajaxUtils.sendGetRequest("data/" + id + ".html", function (responseText) {
             insertHtml("#main-content", responseText)
         }, false);
