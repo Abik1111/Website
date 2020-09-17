@@ -23,14 +23,14 @@
         });
         
     myNameSpc.loadTabResults = function (naya) {
-        if (naya === true) {
-            global.currentPage = 1;
-            console.log("naya ho!!");
-        }
-        else {
-            console.log("naya haina hai!!")
-            global.currentPage = naya;
-        }
+        // if (naya === true) {
+        //     global.currentPage = 1;
+        //     console.log("naya ho!!");
+        // }
+        // else {
+        //     console.log("naya haina hai!!")
+        //     global.currentPage = naya;
+        // }
         $ajaxUtils.sendGetRequest(threeTabResults, buildAndShowTabResultsHTML);
 
     }
@@ -100,6 +100,7 @@
         finalHTML += "<div id='property' class='row'>";
         var desiredProperties = results.desired_properties;
         var numOfPages = results.num_of_pages;
+        global.currentPage=results.current_page;
         for (var i = 0; i < desiredProperties.length; i++) {
             var html = searchResultsBodyHTML;
             html = insertProperty(html, "image", desiredProperties[i].image);
