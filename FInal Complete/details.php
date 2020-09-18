@@ -233,7 +233,7 @@
             
         </div>
     </div>
-        <footer class="panel-footer" style="width:-4%;">
+        <footer class="panel-footer" style="margin-left:-4%;">
             <div class="container">
                 <div class="row">
                     <section id="contact">
